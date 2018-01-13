@@ -8,4 +8,9 @@ object Constant {
      * 服务器地址
      */
     const val SERVER_ADDRESS = "http://wanandroid.com/"
+    /**
+     * SPKEY
+     */
+    const val SHARED_NAME = "_preferences"
+
 }

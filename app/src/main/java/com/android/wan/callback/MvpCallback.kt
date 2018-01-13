@@ -27,4 +27,14 @@ interface MvpCallback<T> {
      * 请求时可以在此处隐藏“正在加载”的等待控件
      */
     fun onComplete()
+
+    /**
+     * 显示进度
+     */
+    fun showLoading()
+
+    /**
+     * 消失进度
+     */
+    fun dissMissLoading()
 }

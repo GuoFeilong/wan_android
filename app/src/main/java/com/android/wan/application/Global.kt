@@ -5,8 +5,6 @@ import android.app.Application
 import android.content.ComponentCallbacks2
 import com.android.wan.BuildConfig
 import com.bumptech.glide.Glide
-import com.elvishew.xlog.LogLevel
-import com.elvishew.xlog.XLog
 
 /**
  * @author by 有人@我 on 2018/1/12.
@@ -35,11 +33,7 @@ class Global : Application() {
     }
 
     private fun initXlog() {
-        if (BuildConfig.DEBUG) {
-            XLog.init(LogLevel.NONE)
-        } else {
-            XLog.init(LogLevel.ALL)
-        }
+
     }
 
 }

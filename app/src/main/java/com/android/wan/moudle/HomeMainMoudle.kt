@@ -18,9 +18,9 @@ class HomeMainMoudle {
         val knowledgeFragment = KnowledgeHierarchyFragment()
         val userCenterFragment = UserCenterFragment()
         val fragmentList = ArrayList<AbstractFragment>()
-        (fragmentList as ArrayList<AbstractFragment>).add(homeFragment)
-        (fragmentList as ArrayList<AbstractFragment>).add(knowledgeFragment)
-        (fragmentList as ArrayList<AbstractFragment>).add(userCenterFragment)
+        fragmentList.add(homeFragment)
+        fragmentList.add(knowledgeFragment)
+        fragmentList.add(userCenterFragment)
         return fragmentList
     }
 }

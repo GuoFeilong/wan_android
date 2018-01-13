@@ -7,7 +7,7 @@ import com.android.wan.presenter.BasePresenter
 import com.android.wan.view.HomeMainView
 
 /**
- * @author by Jsion on 2018/1/13.
+ * @author by 有人@我 on 2018/1/13.
  */
 class HomeMainPresenter : BasePresenter<HomeMainView>() {
     var homeMainMoudle: HomeMainMoudle = HomeMainMoudle()

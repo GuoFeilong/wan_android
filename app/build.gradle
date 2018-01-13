@@ -4,9 +4,27 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+ext.retrofit2_version = "2.1.0"
+ext.retrofit2_converter_gson_version = "2.1.0"
+ext.retrofit2_converter_kotlin_coroutines_version = "1.0.0"
+ext.okhttp3_logging_version = "3.6.0"
+ext.kotlin_version = '1.2.10'
+
+ext.kotlin_version = '1.1.2-4'
+ext.retrofit_version = '2.0.2'
+ext.rxkotlin_version = '0.60.0'
+ext.rxandroid_version = '1.2.1'
+
+
 android {
     compileSdkVersion 27
     buildToolsVersion '27.0.0'
+
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+
     defaultConfig {
         applicationId "com.android.wan"
         minSdkVersion 21
@@ -22,6 +40,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
@@ -38,8 +57,17 @@ dependencies {
     implementation 'com.afollestad:aesthetic:0.4.7'
     implementation 'com.github.bumptech.glide:glide:4.5.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
-    implementation 'com.elvishew:xlog:1.4.0'
     implementation 'com.gyf.barlibrary:barlibrary:2.3.0'
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3_logging_version"
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava:$retrofit_version"
+
+    //RxJava
+    implementation "io.reactivex:rxkotlin:$rxkotlin_version"
+    implementation "io.reactivex:rxandroid:$rxandroid_version"
 }

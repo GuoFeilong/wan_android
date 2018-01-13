@@ -20,7 +20,7 @@ abstract class AbstractFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView: View = setFragmentRootView(inflater, container, savedInstanceState)
+        val rootView: View = setFragmentRootView(inflater, container)
         initData()
         initView(rootView)
         initEvent()
@@ -36,7 +36,7 @@ abstract class AbstractFragment : Fragment() {
         activityContext = context
     }
 
-    protected fun setFragmentRootView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    protected fun setFragmentRootView(inflater: LayoutInflater, container: ViewGroup?): View {
         return inflater.inflate(setFragmentLayout(), container, false)
     }
 

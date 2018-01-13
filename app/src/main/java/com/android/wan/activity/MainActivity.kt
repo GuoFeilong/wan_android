@@ -1,8 +1,9 @@
-package com.android.wan
+package com.android.wan.activity
 
 import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import com.android.wan.R
 import com.android.wan.base.AbstractActivity
 import com.android.wan.presenter.HomeMainPresenter
 import com.android.wan.view.HomeMainView
