@@ -28,13 +28,12 @@ class MainActivity : AbstractActivity(), HomeMainView {
         return this
     }
 
-    var homeMainPresenter: HomeMainPresenter? = null
+    var homeMainPresenter: HomeMainPresenter = HomeMainPresenter()
 
     override fun initData() {
-        homeMainPresenter= HomeMainPresenter()
-        homeMainPresenter!!.attachView(this)
-        homeMainPresenter!!.addAllFragment(R.id.fl_fragment_container)
-        homeMainPresenter!!.showCurrentFragment(R.id.fl_fragment_container, 0)
+        homeMainPresenter.attachView(this)
+        homeMainPresenter.addAllFragment(R.id.fl_fragment_container)
+        homeMainPresenter.showCurrentFragment(R.id.fl_fragment_container, 0)
     }
 
     override fun initEvent() {
@@ -48,15 +47,15 @@ class MainActivity : AbstractActivity(), HomeMainView {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
-                homeMainPresenter!!.showCurrentFragment(R.id.fl_fragment_container, 0)
+                homeMainPresenter.showCurrentFragment(R.id.fl_fragment_container, 0)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
-                homeMainPresenter!!.showCurrentFragment(R.id.fl_fragment_container, 1)
+                homeMainPresenter.showCurrentFragment(R.id.fl_fragment_container, 1)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
-                homeMainPresenter!!.showCurrentFragment(R.id.fl_fragment_container, 2)
+                homeMainPresenter.showCurrentFragment(R.id.fl_fragment_container, 2)
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -70,6 +69,6 @@ class MainActivity : AbstractActivity(), HomeMainView {
 
     override fun onDestroy() {
         super.onDestroy()
-        homeMainPresenter!!.detachView()
+        homeMainPresenter.detachView()
     }
 }
