@@ -1,31 +1,43 @@
 package com.android.wan
 
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import com.android.wan.base.AbstractActivity
-import com.android.wan.contract.TaskMainContract
-import com.android.wan.presenter.TaskMainPresenter
+import com.android.wan.presenter.HomeMainPresenter
+import com.android.wan.view.HomeMainView
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AbstractActivity(), TaskMainContract.View {
-
-
-    override fun showProgressDialog() {
+class MainActivity : AbstractActivity(), HomeMainView {
+    override fun showLoading() {
 
     }
 
-    override fun dissMissProgressDialog() {
+
+    override fun hideLoading() {
 
     }
 
-    var taskMainPresenter: TaskMainPresenter? = null
+    override fun showToast(msg: String) {
+    }
+
+    override fun showErr() {
+    }
+
+    override fun getContext(): Context {
+        return this
+    }
+
+    var homeMainPresenter: HomeMainPresenter? = null
+
     override fun initData() {
-        taskMainPresenter = TaskMainPresenter(this)
-        taskMainPresenter!!.addAllFragment(this, R.id.fl_fragment_container)
+        homeMainPresenter= HomeMainPresenter()
+        homeMainPresenter!!.attachView(this)
+        homeMainPresenter!!.addAllFragment(R.id.fl_fragment_container)
+        homeMainPresenter!!.showCurrentFragment(R.id.fl_fragment_container, 0)
     }
 
     override fun initEvent() {
-        taskMainPresenter!!.showCurrentFragment(this@MainActivity, 0)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 
@@ -36,15 +48,15 @@ class MainActivity : AbstractActivity(), TaskMainContract.View {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
-                taskMainPresenter!!.showCurrentFragment(this@MainActivity, 0)
+                homeMainPresenter!!.showCurrentFragment(R.id.fl_fragment_container, 0)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
-                taskMainPresenter!!.showCurrentFragment(this@MainActivity, 1)
+                homeMainPresenter!!.showCurrentFragment(R.id.fl_fragment_container, 1)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
-                taskMainPresenter!!.showCurrentFragment(this@MainActivity, 2)
+                homeMainPresenter!!.showCurrentFragment(R.id.fl_fragment_container, 2)
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -54,5 +66,10 @@ class MainActivity : AbstractActivity(), TaskMainContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         applyTheme(R.color.colorPrimary)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        homeMainPresenter!!.detachView()
     }
 }
