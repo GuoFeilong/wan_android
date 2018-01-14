@@ -5,4 +5,8 @@
     <dimen name="dimens_60_dp">60dp</dimen>
     <dimen name="dimens_0_dp">0dp</dimen>
     <dimen name="dimens_65_dp">65dp</dimen>
+    <dimen name="dimens_140_dp">140dp</dimen>
+    <dimen name="dimens_8_dp">8dp</dimen>
+    <dimen name="dimens_10_dp">10dp</dimen>
+    <dimen name="dimens_160_dp">160dp</dimen>
 </resources>

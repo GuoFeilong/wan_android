@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import butterknife.ButterKnife
 
 
 /**
@@ -47,6 +46,6 @@ abstract class AbstractFragment : Fragment() {
     protected abstract fun initEvent()
 
     private fun initView(rootView: View) {
-        ButterKnife.bind(this, rootView)
+
     }
 }

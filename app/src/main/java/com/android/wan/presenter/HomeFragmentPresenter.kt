@@ -4,7 +4,6 @@ import android.content.Context
 import com.android.wan.callback.MvpCallback
 import com.android.wan.moudle.HomeFragmentMoudle
 import com.android.wan.net.response.BannerResponse
-import com.android.wan.view.BaseView
 import com.android.wan.view.HomeFragmentView
 
 /**

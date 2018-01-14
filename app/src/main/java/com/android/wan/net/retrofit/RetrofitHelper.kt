@@ -1,7 +1,5 @@
 import com.android.wan.BuildConfig
 import com.android.wan.constant.Constant
-import com.orhanobut.logger.Logger
-//import com.android.wan.net.retrofit.Preference
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

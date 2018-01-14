@@ -48,7 +48,7 @@ abstract class AbstractActivity : AppCompatActivity() {
     protected abstract fun setContentLayoutId(): Int
 
     private fun initView() {
-        ButterKnife.bind(this)
+
     }
 
     /**

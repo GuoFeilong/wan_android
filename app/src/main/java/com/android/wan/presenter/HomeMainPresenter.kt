@@ -2,6 +2,7 @@ package com.android.wan.presenter
 
 import android.content.Context
 import com.android.wan.base.AbstractActivity
+import com.android.wan.base.AbstractFragment
 import com.android.wan.moudle.HomeMainMoudle
 import com.android.wan.presenter.BasePresenter
 import com.android.wan.view.HomeMainView
@@ -13,6 +14,7 @@ class HomeMainPresenter : BasePresenter<HomeMainView>() {
     var homeMainMoudle: HomeMainMoudle = HomeMainMoudle()
     var homeMainView: HomeMainView? = null
     var activityContex: Context? = null
+    var allFragmentData: List<AbstractFragment>? = homeMainMoudle.getAllFragmentData()
 
     override fun attachView(mvpView: HomeMainView) {
         this.homeMainView = mvpView
@@ -32,20 +34,20 @@ class HomeMainPresenter : BasePresenter<HomeMainView>() {
     }
 
     fun hideAllFragment() {
-        for (allFragmentDatum in homeMainMoudle.getAllFragmentData()) {
+        for (allFragmentDatum in this.allFragmentData!!) {
             (activityContex as AbstractActivity).supportFragmentManager
                     .beginTransaction()
                     .hide(allFragmentDatum)
-                    .commitAllowingStateLoss()
+                    .commit()
         }
     }
 
     fun addAllFragment(layoutId: Int) {
-        for (allFragmentDatum in homeMainMoudle.getAllFragmentData()) {
+        for (allFragmentDatum in this.allFragmentData!!) {
             (activityContex as AbstractActivity).supportFragmentManager
                     .beginTransaction()
                     .add(layoutId, allFragmentDatum)
-                    .commitAllowingStateLoss()
+                    .commit()
         }
     }
 
@@ -53,8 +55,8 @@ class HomeMainPresenter : BasePresenter<HomeMainView>() {
         hideAllFragment()
         (activityContex as AbstractActivity).supportFragmentManager
                 .beginTransaction()
-                .add(layoutId, homeMainMoudle.getAllFragmentData().get(index))
-                .commitAllowingStateLoss()
+                .show( this.allFragmentData!!.get(index))
+                .commit()
     }
 
 }
