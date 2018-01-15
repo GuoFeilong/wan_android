@@ -4,6 +4,7 @@ import RetrofitHelper
 import android.util.Log
 import com.android.wan.callback.MvpCallback
 import com.android.wan.net.response.BannerResponse
+import com.android.wan.net.response.HomeListResponse
 import rx.Subscriber
 import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
@@ -15,9 +16,9 @@ import rx.schedulers.Schedulers
  */
 
 class HomeFragmentMoudle() {
-    var subscription: Subscription? = null
 
     fun getBannerData(mvpCallback: MvpCallback<BannerResponse>) {
+        var subscription: Subscription? = null
         subscription?.unsubscribe()
         subscription = RetrofitHelper.retrofitService.getBanner()
                 .subscribeOn(Schedulers.io())
@@ -27,6 +28,7 @@ class HomeFragmentMoudle() {
                 }
                 .subscribe(object : Subscriber<BannerResponse>() {
                     override fun onCompleted() {
+                        subscription?.unsubscribe()
                         mvpCallback.dissMissLoading()
                     }
 
@@ -39,5 +41,32 @@ class HomeFragmentMoudle() {
                     }
                 })
     }
+
+    fun getHomeListData(mvpCallback: MvpCallback<HomeListResponse>, pageIndex: Int) {
+        var subscription: Subscription? = null
+        subscription?.unsubscribe()
+        subscription = RetrofitHelper.retrofitService.getHomeList(pageIndex)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe {
+                    mvpCallback.showLoading()
+                }
+                .subscribe(object : Subscriber<HomeListResponse>() {
+                    override fun onError(e: Throwable?) {
+                        mvpCallback.onFailure(e.toString())
+                    }
+
+                    override fun onNext(t: HomeListResponse?) {
+                        mvpCallback.onSuccess(t!!)
+                    }
+
+                    override fun onCompleted() {
+                        subscription?.unsubscribe()
+                        mvpCallback.dissMissLoading()
+                    }
+
+                })
+    }
+
 }
 

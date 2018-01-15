@@ -2,12 +2,14 @@ package com.android.wan.fragment
 
 import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.widget.Toast
 import com.android.wan.R
 import com.android.wan.adapter.BannerAdapter
 import com.android.wan.base.AbstractFragment
 import com.android.wan.callback.OnRecyItemClickListener
 import com.android.wan.net.response.BannerResponse
+import com.android.wan.net.response.HomeListResponse
 import com.android.wan.presenter.HomeFragmentPresenter
 import com.android.wan.view.HomeFragmentView
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -24,6 +26,8 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
     }
 
     override fun bindBannerData(bannerResponse: BannerResponse) {
+        Log.e("--轮播-->", bannerResponse.toString())
+
         bannerAdapter = BannerAdapter(activityContext!!)
         bannerAdapter!!.itemClickListener = object : OnRecyItemClickListener<BannerResponse.Data> {
             override fun onRecyItemClick(position: Int, t: BannerResponse.Data) {
@@ -36,6 +40,10 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
         bannerRecycler.adapter = bannerAdapter
         bannerRecycler.bannerStart()
 
+    }
+
+    override fun bindHomeArticle(articleResponse: HomeListResponse) {
+        Log.e("--首页-->", articleResponse.toString())
     }
 
     override fun onAttach(context: Context?) {
@@ -66,11 +74,12 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
 
     override fun initData() {
         homeFragmentPresenter = HomeFragmentPresenter()
-        homeFragmentPresenter!!.attachView(this)
+        homeFragmentPresenter?.attachView(this)
     }
 
     override fun initEvent() {
-        homeFragmentPresenter!!.getBannerData()
+        homeFragmentPresenter?.getBannerData()
+        homeFragmentPresenter?.getHomeListArticle(0)
     }
 
 }

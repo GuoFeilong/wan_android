@@ -1,4 +1,5 @@
 import com.android.wan.net.response.BannerResponse
+import com.android.wan.net.response.HomeListResponse
 import retrofit2.http.*
 import rx.Observable
 
@@ -7,16 +8,14 @@ import rx.Observable
  */
 interface RetrofitService {
 
-//    /**
-//     * 首页数据
-//     * http://www.wanandroid.com/article/list/0/json
-//     * @param page page
-//     */
-//
-//    @GET("/article/list/{page}/json")
-//    fun getHomeList(
-//            @Path("page") page: Int
-//    ): Deferred<HomeListResponse>
+    /**
+     * 首页数据
+     * http://www.wanandroid.com/article/list/0/json
+     * @param page page
+     */
+
+    @GET("/article/list/{page}/json")
+    fun getHomeList(@Path("page") page: Int): Observable<HomeListResponse>
 //
 //    /**
 //     * 知识体系
