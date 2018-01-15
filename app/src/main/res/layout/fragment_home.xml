@@ -3,11 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
+    <com.android.wan.customwidget.BannerRecyclerView
         android:id="@+id/bannerRecycler"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimens_160_dp">
 
-    </android.support.v7.widget.RecyclerView>
+    </com.android.wan.customwidget.BannerRecyclerView>
 
 </FrameLayout>

@@ -34,6 +34,7 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
         bannerAdapter?.bannerData = bannerResponse.data
         bannerRecycler.layoutManager = LinearLayoutManager(activityContext, LinearLayoutManager.HORIZONTAL, false)
         bannerRecycler.adapter = bannerAdapter
+        bannerRecycler.bannerStart()
 
     }
 
