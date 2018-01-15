@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.android.wan.R
 import com.android.wan.callback.OnArticleClickListener
-import com.android.wan.callback.OnRecyItemClickListener
 import com.android.wan.net.response.entity.Datas
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -56,6 +55,19 @@ class ArticleAdapter(mContext: Context) : RecyclerView.Adapter<RecyclerView.View
 
     override fun getItemCount(): Int {
         return articleList.size
+    }
+
+
+    fun setArticleData(refresh: Boolean, articleData: List<Datas>) {
+        if (refresh) {
+            if (articleData.size > 0) {
+                (articleList as ArrayList<Datas>).clear()
+                (articleList as ArrayList<Datas>).addAll(articleData)
+            }
+        } else {
+            (articleList as ArrayList<Datas>).addAll(articleData)
+        }
+        notifyDataSetChanged()
     }
 
     class ArticleViewHoler(itemView: View) : RecyclerView.ViewHolder(itemView) {

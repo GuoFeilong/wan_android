@@ -10,6 +10,7 @@ import com.android.wan.view.HomeMainView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AbstractActivity(), HomeMainView {
+
     override fun showLoading() {
 
     }
@@ -35,6 +36,10 @@ class MainActivity : AbstractActivity(), HomeMainView {
         homeMainPresenter.attachView(this)
         homeMainPresenter.addAllFragment(R.id.fl_fragment_container)
         homeMainPresenter.showCurrentFragment(R.id.fl_fragment_container, 0)
+    }
+
+    override fun initView() {
+
     }
 
     override fun initEvent() {

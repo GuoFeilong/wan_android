@@ -3,6 +3,7 @@ package com.android.wan.fragment
 import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.android.wan.R
 import com.android.wan.adapter.ArticleAdapter
@@ -10,29 +11,34 @@ import com.android.wan.adapter.BannerAdapter
 import com.android.wan.base.AbstractFragment
 import com.android.wan.callback.OnArticleClickListener
 import com.android.wan.callback.OnRecyItemClickListener
+import com.android.wan.customwidget.BannerRecyclerView
 import com.android.wan.net.response.BannerResponse
 import com.android.wan.net.response.HomeListResponse
 import com.android.wan.net.response.entity.Datas
 import com.android.wan.presenter.HomeFragmentPresenter
 import com.android.wan.view.HomeFragmentView
-import kotlinx.android.synthetic.main.fragment_home.*
+import com.jcodecraeer.xrecyclerview.ProgressStyle
+import com.jcodecraeer.xrecyclerview.XRecyclerView
 
 
 /**
  * @author by 有人@我 on 2018/1/12.
  */
 class HomeFragment : AbstractFragment(), HomeFragmentView {
+    var bannerRecycler: BannerRecyclerView? = null
+    var articleRecycler: XRecyclerView? = null
     var bannerAdapter: BannerAdapter? = null
     var articleAdapter: ArticleAdapter? = null
+    var pageIndex: Int = 0
+    var refresh: Boolean = false
 
     override fun showLoading() {
-        Toast.makeText(activityContext, "显示loading", Toast.LENGTH_SHORT).show()
+
     }
 
     override fun bindBannerData(bannerResponse: BannerResponse) {
         Log.e("--轮播-->", bannerResponse.toString())
 
-        bannerAdapter = BannerAdapter(activityContext!!)
         bannerAdapter!!.itemClickListener = object : OnRecyItemClickListener<BannerResponse.Data> {
             override fun onRecyItemClick(position: Int, t: BannerResponse.Data) {
                 Toast.makeText(activityContext, t.desc, Toast.LENGTH_SHORT).show()
@@ -40,9 +46,8 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
         }
         bannerAdapter?.mContext = activityContext
         bannerAdapter?.bannerData = bannerResponse.data
-        bannerRecycler.layoutManager = LinearLayoutManager(activityContext, LinearLayoutManager.HORIZONTAL, false)
-        bannerRecycler.adapter = bannerAdapter
-        bannerRecycler.bannerStart()
+        bannerAdapter?.notifyDataSetChanged()
+        bannerRecycler?.bannerStart()
 
     }
 
@@ -51,8 +56,7 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
 
         when (articleResponse.errorCode) {
             0 -> {
-                articleAdapter = ArticleAdapter(activityContext!!)
-                articleAdapter?.articleList = articleResponse.data.datas!!
+                articleAdapter?.setArticleData(refresh, articleResponse.data.datas!!)
                 articleAdapter?.articleClickListener = object : OnArticleClickListener<Datas> {
                     override fun onRecyItemClick(position: Int, t: Datas) {
                         Toast.makeText(activityContext, t.author, Toast.LENGTH_SHORT).show()
@@ -71,8 +75,12 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
                     }
 
                 }
-                articleRecycler.layoutManager = LinearLayoutManager(activityContext)
-                articleRecycler.adapter = articleAdapter
+                articleAdapter?.notifyDataSetChanged()
+                if (refresh) {
+                    articleRecycler?.refreshComplete()
+                } else {
+                    articleRecycler?.loadMoreComplete()
+                }
             }
         }
     }
@@ -82,7 +90,7 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
     }
 
     override fun hideLoading() {
-        Toast.makeText(activityContext, "隐藏loading", Toast.LENGTH_SHORT).show()
+
     }
 
     override fun showToast(msg: String) {
@@ -106,11 +114,42 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
     override fun initData() {
         homeFragmentPresenter = HomeFragmentPresenter()
         homeFragmentPresenter?.attachView(this)
+        bannerAdapter = BannerAdapter(activityContext!!)
+        articleAdapter = ArticleAdapter(activityContext!!)
+
+    }
+
+    override fun initView(rootView: View) {
+        bannerRecycler = rootView.findViewById(R.id.bannerRecycler)
+        bannerRecycler?.layoutManager = LinearLayoutManager(activityContext, LinearLayoutManager.HORIZONTAL, false)
+        bannerRecycler?.adapter = bannerAdapter
+
+        articleRecycler = rootView.findViewById(R.id.articleRecycler)
     }
 
     override fun initEvent() {
         homeFragmentPresenter?.getBannerData()
-        homeFragmentPresenter?.getHomeListArticle(0)
+        homeFragmentPresenter?.getHomeListArticle(pageIndex)
+        articleRecycler?.layoutManager = LinearLayoutManager(activityContext)
+
+        articleRecycler?.setPullRefreshEnabled(true)
+        articleRecycler?.setLoadingMoreEnabled(true)
+        articleRecycler?.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader)
+        articleRecycler?.setLoadingMoreProgressStyle(ProgressStyle.LineScalePulseOutRapid)
+        articleRecycler?.adapter = articleAdapter
+        articleRecycler?.setLoadingListener(object : XRecyclerView.LoadingListener {
+            override fun onLoadMore() {
+                refresh = false
+                homeFragmentPresenter?.getHomeListArticle(pageIndex)
+            }
+
+            override fun onRefresh() {
+                refresh = true
+                pageIndex = 0
+                homeFragmentPresenter?.getHomeListArticle(pageIndex)
+            }
+        })
+
     }
 
 }

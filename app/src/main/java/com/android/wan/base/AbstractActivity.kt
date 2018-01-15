@@ -47,9 +47,7 @@ abstract class AbstractActivity : AppCompatActivity() {
 
     protected abstract fun setContentLayoutId(): Int
 
-    private fun initView() {
-
-    }
+    protected abstract fun initView()
 
     /**
      * 修改主体颜色

@@ -45,7 +45,5 @@ abstract class AbstractFragment : Fragment() {
 
     protected abstract fun initEvent()
 
-    private fun initView(rootView: View) {
-
-    }
+    protected abstract fun initView(rootView: View)
 }
