@@ -1,21 +1,19 @@
 package com.android.wan.adapter
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.afollestad.aesthetic.AestheticImageView
-import com.afollestad.aesthetic.AestheticTextView
 import com.android.wan.R
 import com.android.wan.callback.OnRecyItemClickListener
 import com.android.wan.net.response.BannerResponse
 import com.bumptech.glide.Glide
 
 /**
+ * 轮播适配器
  * @author by 有人@我 on 2018/1/14.
  */
 class BannerAdapter(mContext: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

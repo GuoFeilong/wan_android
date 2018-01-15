@@ -5,11 +5,14 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.widget.Toast
 import com.android.wan.R
+import com.android.wan.adapter.ArticleAdapter
 import com.android.wan.adapter.BannerAdapter
 import com.android.wan.base.AbstractFragment
+import com.android.wan.callback.OnArticleClickListener
 import com.android.wan.callback.OnRecyItemClickListener
 import com.android.wan.net.response.BannerResponse
 import com.android.wan.net.response.HomeListResponse
+import com.android.wan.net.response.entity.Datas
 import com.android.wan.presenter.HomeFragmentPresenter
 import com.android.wan.view.HomeFragmentView
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -20,6 +23,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
  */
 class HomeFragment : AbstractFragment(), HomeFragmentView {
     var bannerAdapter: BannerAdapter? = null
+    var articleAdapter: ArticleAdapter? = null
 
     override fun showLoading() {
         Toast.makeText(activityContext, "显示loading", Toast.LENGTH_SHORT).show()
@@ -44,6 +48,33 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
 
     override fun bindHomeArticle(articleResponse: HomeListResponse) {
         Log.e("--首页-->", articleResponse.toString())
+
+        when (articleResponse.errorCode) {
+            0 -> {
+                articleAdapter = ArticleAdapter(activityContext!!)
+                articleAdapter?.articleList = articleResponse.data.datas!!
+                articleAdapter?.articleClickListener = object : OnArticleClickListener<Datas> {
+                    override fun onRecyItemClick(position: Int, t: Datas) {
+                        Toast.makeText(activityContext, t.author, Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onArticleTypeClick() {
+                        Toast.makeText(activityContext, "类别", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onArticleAuthClick() {
+                        Toast.makeText(activityContext, "作者", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onArticleLikeClick() {
+                        Toast.makeText(activityContext, "收藏", Toast.LENGTH_SHORT).show()
+                    }
+
+                }
+                articleRecycler.layoutManager = LinearLayoutManager(activityContext)
+                articleRecycler.adapter = articleAdapter
+            }
+        }
     }
 
     override fun onAttach(context: Context?) {
