@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dimens_8_dp"
+    android:background="@color/color_ffffff"
+    android:minHeight="@dimen/dimens_65_dp"
+    android:padding="@dimen/activity_horizontal_margin">
+
+
+    <TextView
+        android:id="@+id/knowledgeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:background="@drawable/shape_rect_knowledge"
+        android:gravity="center"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="@dimen/dimens_15_sp"
+        tool:text="开发" />
+
+
+    <com.android.wan.customwidget.FlowLayout
+        android:id="@+id/flowKnowledge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        app:layout_constraintTop_toBottomOf="@+id/knowledgeTitle"
+        app:lineSpacing="@dimen/dimens_12_dp"
+        app:maxLine="0">
+
+    </com.android.wan.customwidget.FlowLayout>
+
+
+</android.support.constraint.ConstraintLayout>

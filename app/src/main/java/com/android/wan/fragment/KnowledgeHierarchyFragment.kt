@@ -1,12 +1,15 @@
 package com.android.wan.fragment
 
 import android.content.Context
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.android.wan.R
+import com.android.wan.adapter.KnowledgeTreeAdapter
 import com.android.wan.base.AbstractFragment
+import com.android.wan.callback.OnKnowlegeTreeClickListener
 import com.android.wan.net.response.KnowledgeHierarchyResponse
 import com.android.wan.presenter.KonwledgeTreePresenter
 import com.android.wan.view.KnowledgeFragmentView
@@ -15,12 +18,22 @@ import com.android.wan.view.KnowledgeFragmentView
  * @author by 有人@我 on 2018/1/12.
  */
 class KnowledgeHierarchyFragment : AbstractFragment(), KnowledgeFragmentView {
+    var knowledgeTreePresenter: KonwledgeTreePresenter? = null
+    var knowledgeTreeRecycler: RecyclerView? = null
+    var knowledgeAdapter: KnowledgeTreeAdapter? = null
+
+
     override fun showLoading() {
 
     }
 
     override fun bindknowledageTree(knowledgeHierarchyResponse: KnowledgeHierarchyResponse) {
-        Log.e("-知识体系-->", knowledgeHierarchyResponse.toString())
+        when (knowledgeHierarchyResponse.errorCode) {
+            0 -> {
+                knowledgeAdapter?.knowledgeTrees = knowledgeHierarchyResponse.data
+                knowledgeAdapter?.notifyDataSetChanged()
+            }
+        }
     }
 
     override fun hideLoading() {
@@ -39,10 +52,6 @@ class KnowledgeHierarchyFragment : AbstractFragment(), KnowledgeFragmentView {
         return activityContext!!
     }
 
-    var knowledgeTreePresenter: KonwledgeTreePresenter? = null
-    var knowledgeTreeRecycler: RecyclerView? = null
-
-
     override fun setFragmentLayout(): Int {
         return R.layout.fragment_knowledge
     }
@@ -50,6 +59,18 @@ class KnowledgeHierarchyFragment : AbstractFragment(), KnowledgeFragmentView {
     override fun initData() {
         knowledgeTreePresenter = KonwledgeTreePresenter()
         knowledgeTreePresenter?.attachView(this)
+        knowledgeAdapter = KnowledgeTreeAdapter(activityContext!!)
+        knowledgeAdapter?.knowlegetTreeClickListener = object : OnKnowlegeTreeClickListener<KnowledgeHierarchyResponse.Data> {
+            override fun onRecyItemClick(position: Int, t: KnowledgeHierarchyResponse.Data) {
+                Toast.makeText(activityContext, "树杈标题${t.name}", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onKnowlegeTreeLeafClick(leaf: KnowledgeHierarchyResponse.Data.Children) {
+                Toast.makeText(activityContext, "叶子标题${leaf.name}", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
     }
 
     override fun initEvent() {
@@ -58,5 +79,7 @@ class KnowledgeHierarchyFragment : AbstractFragment(), KnowledgeFragmentView {
 
     override fun initView(rootView: View) {
         knowledgeTreeRecycler = rootView.findViewById(R.id.knowledgeTreeRecyclerView)
+        knowledgeTreeRecycler?.layoutManager = LinearLayoutManager(activityContext)
+        knowledgeTreeRecycler?.adapter = knowledgeAdapter
     }
 }

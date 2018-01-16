@@ -37,7 +37,6 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
     }
 
     override fun bindBannerData(bannerResponse: BannerResponse) {
-        Log.e("--轮播-->", bannerResponse.toString())
 
         bannerAdapter!!.itemClickListener = object : OnRecyItemClickListener<BannerResponse.Data> {
             override fun onRecyItemClick(position: Int, t: BannerResponse.Data) {
@@ -52,7 +51,6 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
     }
 
     override fun bindHomeArticle(articleResponse: HomeListResponse) {
-        Log.e("--首页-->", articleResponse.toString())
 
         when (articleResponse.errorCode) {
             0 -> {

@@ -53,18 +53,18 @@ class MainActivity : AbstractActivity(), HomeMainView {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
-                applyTheme(R.color.colorPrimary)
+                applyTheme(R.color.color_ff8a65)
                 applyStatusBarColor(android.R.color.transparent)
                 homeMainPresenter.showCurrentFragment(R.id.fl_fragment_container, 0)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
-                applyTheme(R.color.colorPrimary)
+                applyTheme(R.color.color_ffcc80)
                 homeMainPresenter.showCurrentFragment(R.id.fl_fragment_container, 1)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
-                applyTheme(R.color.colorPrimary)
+                applyTheme(android.R.color.holo_purple)
                 homeMainPresenter.showCurrentFragment(R.id.fl_fragment_container, 2)
                 return@OnNavigationItemSelectedListener true
             }
@@ -74,7 +74,7 @@ class MainActivity : AbstractActivity(), HomeMainView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        applyTheme(R.color.colorPrimary)
+        applyTheme(R.color.color_ff8a65)
         applyStatusBarColor(android.R.color.transparent)
     }
 
