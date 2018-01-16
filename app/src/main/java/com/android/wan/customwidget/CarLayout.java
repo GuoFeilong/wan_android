@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.android.wan.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +21,7 @@ public class CarLayout extends RelativeLayout {
     private int carTextColor;
     private int carTextSize;
     private List<String> carsData;
+    private List<TextView> allCars;
 
     public CarLayout(Context context) {
         this(context, null);
@@ -31,6 +33,7 @@ public class CarLayout extends RelativeLayout {
 
     public CarLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        allCars = new ArrayList<>();
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CarLayout, defStyleAttr, R.style.DefCarStyle);
         int indexCount = typedArray.getIndexCount();
         for (int i = 0; i < indexCount; i++) {
@@ -56,7 +59,21 @@ public class CarLayout extends RelativeLayout {
 
     public void setCarsData(List<String> carsData) {
         this.carsData = carsData;
+        if (carsData != null) {
+            if (carsData.size() == 3) {
+                makeThreeCars();
+            } else {
+                makeCars();
+            }
+        }
+    }
+
+    private void makeCars() {
 
     }
 
+    private void makeThreeCars() {
+        TextView car = new TextView(getContext());
+        // TODO: 18/1/16 生成三辆车
+    }
 }
