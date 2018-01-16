@@ -1,7 +1,6 @@
 package com.android.wan.customwidget
 
 import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.MotionEvent
@@ -38,6 +37,7 @@ class BannerRecyclerView @JvmOverloads constructor(
         }
         return super.dispatchTouchEvent(ev)
     }
+
 
     fun bannerStart() {
         val itemCount = adapter?.itemCount

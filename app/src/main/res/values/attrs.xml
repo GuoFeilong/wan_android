@@ -5,4 +5,10 @@
         <attr name="lineSpacing" format="dimension" />
         <attr name="maxLine" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="CarLayout">
+        <attr name="carIcon" format="reference" />
+        <attr name="carTextColor" format="color" />
+        <attr name="carTextSize" format="dimension" />
+    </declare-styleable>
 </resources>

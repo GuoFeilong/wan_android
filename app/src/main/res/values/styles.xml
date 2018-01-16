@@ -16,4 +16,10 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
+    <style name="DefCarStyle">
+        <item name="carIcon">@mipmap/icon_car</item>
+        <item name="carTextColor">?attr/colorPrimary</item>
+        <item name="carTextSize">@dimen/dimens_12_sp</item>
+    </style>
+
 </resources>
