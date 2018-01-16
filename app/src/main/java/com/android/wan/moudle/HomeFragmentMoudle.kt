@@ -1,7 +1,6 @@
 package com.android.wan.moudle
 
 import RetrofitHelper
-import android.util.Log
 import com.android.wan.callback.MvpCallback
 import com.android.wan.net.response.BannerResponse
 import com.android.wan.net.response.HomeListResponse
@@ -12,10 +11,10 @@ import rx.schedulers.Schedulers
 
 
 /**
- * @author by Jsion on 2018/1/13.
+ * @author by 有人@我 on 2018/1/13.
  */
 
-class HomeFragmentMoudle() {
+class HomeFragmentMoudle {
 
     fun getBannerData(mvpCallback: MvpCallback<BannerResponse>) {
         var subscription: Subscription? = null

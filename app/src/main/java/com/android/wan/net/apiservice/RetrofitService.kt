@@ -1,5 +1,6 @@
 import com.android.wan.net.response.BannerResponse
 import com.android.wan.net.response.HomeListResponse
+import com.android.wan.net.response.KnowledgeHierarchyResponse
 import retrofit2.http.*
 import rx.Observable
 
@@ -16,13 +17,13 @@ interface RetrofitService {
 
     @GET("/article/list/{page}/json")
     fun getHomeList(@Path("page") page: Int): Observable<HomeListResponse>
-//
-//    /**
-//     * 知识体系
-//     * http://www.wanandroid.com/tree/json
-//     */
-//    @GET("/tree/json")
-//    fun getTypeTreeList(): Deferred<TreeListResponse>
+
+    /**
+     * 知识体系
+     * http://www.wanandroid.com/tree/json
+     */
+    @GET("/tree/json")
+    fun getKnowledgeHierarchyList(): Observable<KnowledgeHierarchyResponse>
 //
 //    /**
 //     * 知识体系下的文章
