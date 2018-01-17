@@ -19,7 +19,8 @@
     <style name="DefCarStyle">
         <item name="carIcon">@mipmap/icon_car</item>
         <item name="carTextColor">?attr/colorPrimary</item>
-        <item name="carTextSize">@dimen/dimens_12_sp</item>
+        <item name="carTextSize">12</item>
+        <item name="carTopMargin">@dimen/dimens_16_dp</item>
     </style>
 
 </resources>

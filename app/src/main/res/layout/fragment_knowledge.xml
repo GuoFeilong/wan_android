@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_f2f2f2">
 
-    <RelativeLayout
-        android:id="@+id/test"
+    <com.android.wan.customwidget.CarLayout
+        android:id="@+id/carLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimens_160_dp"
         android:background="@color/color_fff59d"
@@ -15,46 +14,8 @@
         android:padding="@dimen/activity_horizontal_margin"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/car"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/icon_car"
-            android:drawablePadding="@dimen/dimens_8_dp"
-            android:gravity="center_vertical"
-            android:textColor="?attr/colorPrimary"
-            android:textSize="@dimen/dimens_12_sp"
-            android:textStyle="bold"
-            tool:text="青娱乐" />
 
-        <TextView
-            android:id="@+id/car2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:drawableLeft="@mipmap/icon_car"
-            android:drawablePadding="@dimen/dimens_8_dp"
-            android:gravity="center_vertical"
-            android:textColor="?attr/colorPrimary"
-            android:textSize="@dimen/dimens_12_sp"
-            android:textStyle="bold"
-            tool:text="青娱乐" />
-
-        <TextView
-            android:id="@+id/car3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:drawableLeft="@mipmap/icon_car"
-            android:drawablePadding="@dimen/dimens_8_dp"
-            android:gravity="center_vertical"
-            android:textColor="?attr/colorPrimary"
-            android:textSize="@dimen/dimens_12_sp"
-            android:textStyle="bold"
-            tool:text="青娱乐" />
-
-
-    </RelativeLayout>
+    </com.android.wan.customwidget.CarLayout>
 
 
     <android.support.v7.widget.RecyclerView
@@ -64,7 +25,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/test">
+        app:layout_constraintTop_toBottomOf="@+id/carLayout">
 
     </android.support.v7.widget.RecyclerView>
 

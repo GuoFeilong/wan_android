@@ -18,4 +18,5 @@
     <dimen name="dimens_100_dp">100dp</dimen>
     <dimen name="dimens_12_dp">12dp</dimen>
     <dimen name="dimens_15_sp">15sp</dimen>
+    <dimen name="dimens_16_dp">16dp</dimen>
 </resources>

@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import com.android.wan.R
 import com.android.wan.base.AbstractActivity
+import com.android.wan.base.AbstractFragment
+import com.android.wan.fragment.KnowledgeHierarchyFragment
 import com.android.wan.presenter.HomeMainPresenter
 import com.android.wan.view.HomeMainView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -31,6 +33,7 @@ class MainActivity : AbstractActivity(), HomeMainView {
     }
 
     var homeMainPresenter: HomeMainPresenter = HomeMainPresenter()
+    var currentFragment: AbstractFragment? = null
 
     override fun initData() {
         homeMainPresenter.attachView(this)
@@ -60,7 +63,9 @@ class MainActivity : AbstractActivity(), HomeMainView {
             }
             R.id.navigation_dashboard -> {
                 applyTheme(R.color.color_ffcc80)
-                homeMainPresenter.showCurrentFragment(R.id.fl_fragment_container, 1)
+                currentFragment = homeMainPresenter.showCurrentFragment(R.id.fl_fragment_container, 1)
+                (currentFragment as KnowledgeHierarchyFragment).onpenCar()
+
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {

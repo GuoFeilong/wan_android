@@ -9,6 +9,7 @@
     <declare-styleable name="CarLayout">
         <attr name="carIcon" format="reference" />
         <attr name="carTextColor" format="color" />
-        <attr name="carTextSize" format="dimension" />
+        <attr name="carTextSize" format="integer" />
+        <attr name="carTopMargin" format="dimension" />
     </declare-styleable>
 </resources>

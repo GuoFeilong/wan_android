@@ -12,6 +12,7 @@ import com.android.wan.base.AbstractFragment
 import com.android.wan.callback.OnArticleClickListener
 import com.android.wan.callback.OnRecyItemClickListener
 import com.android.wan.customwidget.BannerRecyclerView
+import com.android.wan.customwidget.CarLayout
 import com.android.wan.net.response.BannerResponse
 import com.android.wan.net.response.HomeListResponse
 import com.android.wan.net.response.entity.Datas

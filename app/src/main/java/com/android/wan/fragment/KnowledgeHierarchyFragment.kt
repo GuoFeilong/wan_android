@@ -9,7 +9,9 @@ import android.widget.Toast
 import com.android.wan.R
 import com.android.wan.adapter.KnowledgeTreeAdapter
 import com.android.wan.base.AbstractFragment
+import com.android.wan.callback.OnCarClickListener
 import com.android.wan.callback.OnKnowlegeTreeClickListener
+import com.android.wan.customwidget.CarLayout
 import com.android.wan.net.response.KnowledgeHierarchyResponse
 import com.android.wan.presenter.KonwledgeTreePresenter
 import com.android.wan.view.KnowledgeFragmentView
@@ -21,6 +23,7 @@ class KnowledgeHierarchyFragment : AbstractFragment(), KnowledgeFragmentView {
     var knowledgeTreePresenter: KonwledgeTreePresenter? = null
     var knowledgeTreeRecycler: RecyclerView? = null
     var knowledgeAdapter: KnowledgeTreeAdapter? = null
+    var carLayout: CarLayout? = null
 
 
     override fun showLoading() {
@@ -75,11 +78,24 @@ class KnowledgeHierarchyFragment : AbstractFragment(), KnowledgeFragmentView {
 
     override fun initEvent() {
         knowledgeTreePresenter?.getKnowledgeTree()
+        carLayout?.setCarsData(listOf("青娱乐", "五月天", "1024"))
+        carLayout?.setCarClickListener(object : OnCarClickListener {
+            override fun carClick(int: Int) {
+                Toast.makeText(activityContext, "打开${int}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     override fun initView(rootView: View) {
         knowledgeTreeRecycler = rootView.findViewById(R.id.knowledgeTreeRecyclerView)
+        carLayout = rootView.findViewById(R.id.carLayout)
         knowledgeTreeRecycler?.layoutManager = LinearLayoutManager(activityContext)
         knowledgeTreeRecycler?.adapter = knowledgeAdapter
+    }
+
+    fun onpenCar() {
+        if (!carLayout!!.carRunState) {
+            carLayout?.openCar()
+        }
     }
 }

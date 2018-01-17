@@ -51,12 +51,13 @@ class HomeMainPresenter : BasePresenter<HomeMainView>() {
         }
     }
 
-    fun showCurrentFragment(layoutId: Int, index: Int) {
+    fun showCurrentFragment(layoutId: Int, index: Int): AbstractFragment {
         hideAllFragment()
         (activityContex as AbstractActivity).supportFragmentManager
                 .beginTransaction()
-                .show( this.allFragmentData!!.get(index))
+                .show(this.allFragmentData!!.get(index))
                 .commit()
+        return this.allFragmentData!!.get(index)
     }
 
 }
