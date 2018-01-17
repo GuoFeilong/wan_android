@@ -44,9 +44,9 @@ class KnowledgeTreeMoudle {
 
     fun getCarData(): List<CarData> {
         return listOf(
-                CarData("在线直播青娱乐", "www.qyl.com"),
-                CarData("没有广告youjizz", "www.youjizz.com"),
-                CarData("全民最爱1024", "www.t66y.com")
+                CarData("SoHot客户端你懂得", "http://blog.csdn.net/givemeacondom/article/details/50526518"),
+                CarData("墙外面的在线直播", "http://www.youjizz.com"),
+                CarData("全民最爱1024", "http://www.t66y.com")
         )
     }
 }

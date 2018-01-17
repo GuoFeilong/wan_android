@@ -1,16 +1,18 @@
 package com.android.wan.fragment
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.android.wan.R
+import com.android.wan.activity.BrowserActivity
 import com.android.wan.adapter.KnowledgeTreeAdapter
 import com.android.wan.base.AbstractFragment
 import com.android.wan.callback.OnCarClickListener
 import com.android.wan.callback.OnKnowlegeTreeClickListener
+import com.android.wan.constant.Constant
 import com.android.wan.customwidget.CarLayout
 import com.android.wan.net.response.KnowledgeHierarchyResponse
 import com.android.wan.net.response.entity.CarData
@@ -26,7 +28,6 @@ class KnowledgeHierarchyFragment : AbstractFragment(), KnowledgeFragmentView {
     var knowledgeTreeRecycler: RecyclerView? = null
     var knowledgeAdapter: KnowledgeTreeAdapter? = null
     var carLayout: CarLayout? = null
-
 
     override fun showLoading() {
 
@@ -79,7 +80,6 @@ class KnowledgeHierarchyFragment : AbstractFragment(), KnowledgeFragmentView {
             }
 
         }
-
     }
 
     override fun initEvent() {
@@ -87,7 +87,10 @@ class KnowledgeHierarchyFragment : AbstractFragment(), KnowledgeFragmentView {
         knowledgeTreePresenter?.getCarData()
         carLayout?.setCarClickListener(object : OnCarClickListener {
             override fun carClick(carData: CarData) {
-                Toast.makeText(activityContext, "打开${carData.carName}", Toast.LENGTH_SHORT).show()
+                val intent = Intent(activityContext, BrowserActivity::class.java)
+                intent.putExtra(Constant.BUNDLE_KEY_4_WEB_TITLE, carData.carName)
+                intent.putExtra(Constant.BUNDLE_KEY_4_WEB_URL, carData.carUrl)
+                startActivity(intent)
             }
         })
     }

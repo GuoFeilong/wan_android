@@ -12,5 +12,13 @@ object Constant {
      * SPKEY
      */
     const val SHARED_NAME = "_preferences"
+    /**
+     * webview页面的标题
+     */
+    const val BUNDLE_KEY_4_WEB_TITLE = "bundle_key_4_web_title"
+    /**
+     * webview的url
+     */
+    const val BUNDLE_KEY_4_WEB_URL = "bundle_key_4_web_url"
 
 }

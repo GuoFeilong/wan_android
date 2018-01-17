@@ -1,16 +1,19 @@
 package com.android.wan.fragment
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.android.wan.R
+import com.android.wan.activity.BrowserActivity
 import com.android.wan.adapter.ArticleAdapter
 import com.android.wan.adapter.BannerAdapter
 import com.android.wan.base.AbstractFragment
 import com.android.wan.callback.OnArticleClickListener
 import com.android.wan.callback.OnRecyItemClickListener
+import com.android.wan.constant.Constant
 import com.android.wan.customwidget.BannerRecyclerView
 import com.android.wan.customwidget.CarLayout
 import com.android.wan.net.response.BannerResponse
@@ -41,7 +44,10 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
 
         bannerAdapter!!.itemClickListener = object : OnRecyItemClickListener<BannerResponse.Data> {
             override fun onRecyItemClick(position: Int, t: BannerResponse.Data) {
-                Toast.makeText(activityContext, t.desc, Toast.LENGTH_SHORT).show()
+                val intent = Intent(activityContext, BrowserActivity::class.java)
+                intent.putExtra(Constant.BUNDLE_KEY_4_WEB_TITLE, t.title)
+                intent.putExtra(Constant.BUNDLE_KEY_4_WEB_URL, t.url)
+                startActivity(intent)
             }
         }
         bannerAdapter?.mContext = activityContext
@@ -58,7 +64,10 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
                 articleAdapter?.setArticleData(refresh, articleResponse.data.datas!!)
                 articleAdapter?.articleClickListener = object : OnArticleClickListener<Datas> {
                     override fun onRecyItemClick(position: Int, t: Datas) {
-                        Toast.makeText(activityContext, t.author, Toast.LENGTH_SHORT).show()
+                        val intent = Intent(activityContext, BrowserActivity::class.java)
+                        intent.putExtra(Constant.BUNDLE_KEY_4_WEB_TITLE, t.title)
+                        intent.putExtra(Constant.BUNDLE_KEY_4_WEB_URL, t.link)
+                        startActivity(intent)
                     }
 
                     override fun onArticleTypeClick() {

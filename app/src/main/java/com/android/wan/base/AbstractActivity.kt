@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import butterknife.ButterKnife
 import com.afollestad.aesthetic.Aesthetic
+import com.afollestad.aesthetic.AestheticActivity
 import com.afollestad.aesthetic.BottomNavBgMode
 import com.afollestad.aesthetic.BottomNavIconTextMode
 import com.gyf.barlibrary.ImmersionBar
@@ -17,7 +18,7 @@ abstract class AbstractActivity : AppCompatActivity() {
     protected var mImmersionBar: ImmersionBar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Aesthetic.attach(this);
+//        Aesthetic.attach(this)
         super.onCreate(savedInstanceState)
         mImmersionBar = ImmersionBar.with(this)
         mImmersionBar!!.init()
@@ -29,10 +30,11 @@ abstract class AbstractActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+//        Aesthetic.resume(this)
     }
 
     override fun onPause() {
-        Aesthetic.pause(this);
+//        Aesthetic.pause(this)
         super.onPause()
     }
 

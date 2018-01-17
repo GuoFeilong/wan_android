@@ -3,6 +3,8 @@ package com.android.wan.activity
 import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import android.support.design.widget.NavigationView
+import android.support.v4.content.ContextCompat
 import com.android.wan.R
 import com.android.wan.base.AbstractActivity
 import com.android.wan.base.AbstractFragment
@@ -12,7 +14,6 @@ import com.android.wan.view.HomeMainView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AbstractActivity(), HomeMainView {
-
     override fun showLoading() {
 
     }
@@ -42,7 +43,6 @@ class MainActivity : AbstractActivity(), HomeMainView {
     }
 
     override fun initView() {
-
     }
 
     override fun initEvent() {
@@ -56,20 +56,22 @@ class MainActivity : AbstractActivity(), HomeMainView {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
-                applyTheme(R.color.color_ff8a65)
                 applyStatusBarColor(android.R.color.transparent)
                 homeMainPresenter.showCurrentFragment(R.id.fl_fragment_container, 0)
+                navigation.setBackgroundColor(ContextCompat.getColor(this@MainActivity, android.R.color.transparent))
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
-                applyTheme(R.color.color_ffcc80)
+                applyStatusBarColor(R.color.color_ff8a65)
+                navigation.setBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.color_ff8a65))
                 currentFragment = homeMainPresenter.showCurrentFragment(R.id.fl_fragment_container, 1)
                 (currentFragment as KnowledgeHierarchyFragment).onpenCar()
 
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
-                applyTheme(android.R.color.holo_purple)
+                applyStatusBarColor(R.color.color_ff8a65)
+                navigation.setBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.color_ff8a65))
                 homeMainPresenter.showCurrentFragment(R.id.fl_fragment_container, 2)
                 return@OnNavigationItemSelectedListener true
             }
@@ -79,8 +81,6 @@ class MainActivity : AbstractActivity(), HomeMainView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        applyTheme(R.color.color_ff8a65)
-        applyStatusBarColor(android.R.color.transparent)
     }
 
     override fun onDestroy() {
