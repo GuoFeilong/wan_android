@@ -10,15 +10,19 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.BounceInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.wan.R;
 import com.android.wan.callback.OnCarClickListener;
+import com.android.wan.net.response.entity.CarData;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
@@ -35,7 +39,7 @@ public class CarLayout extends RelativeLayout {
     private int carTextColor;
     private int carTextSize;
     private int carTopMargin;
-    private List<String> carsData;
+    private List<CarData> carsData;
     private List<TextView> allCars;
     private int carIndex;
     private boolean carRun;
@@ -78,7 +82,7 @@ public class CarLayout extends RelativeLayout {
         typedArray.recycle();
     }
 
-    public void setCarsData(List<String> carsData) {
+    public void setCarsData(List<CarData> carsData) {
         this.carsData = carsData;
         if (carsData != null) {
             if (carsData.size() == 3) {
@@ -95,7 +99,7 @@ public class CarLayout extends RelativeLayout {
             car.setTextColor(carTextColor);
             car.setTextSize(carTextSize);
             car.setId(i);
-            car.setText(carsData.get(i));
+            car.setText(carsData.get(i).getCarName());
             car.setGravity(Gravity.CENTER);
             carIconRes.setBounds(0, 0, carIconRes.getMinimumWidth(), carIconRes.getMinimumHeight());
             car.setCompoundDrawables(carIconRes, null, null, null);
@@ -116,7 +120,7 @@ public class CarLayout extends RelativeLayout {
                 @Override
                 public void onClick(View view) {
                     if (carClickListener != null) {
-                        carClickListener.carClick(finalI);
+                        carClickListener.carClick(carsData.get(finalI));
                     }
                 }
             });
@@ -127,7 +131,7 @@ public class CarLayout extends RelativeLayout {
         TextView car = new TextView(getContext());
         car.setTextColor(carTextColor);
         car.setTextSize(carTextSize);
-        car.setText(carsData.get(0));
+        car.setText(carsData.get(0).getCarName());
         car.setGravity(Gravity.CENTER);
         carIconRes.setBounds(0, 0, carIconRes.getMinimumWidth(), carIconRes.getMinimumHeight());
         car.setCompoundDrawables(carIconRes, null, null, null);
@@ -144,7 +148,7 @@ public class CarLayout extends RelativeLayout {
             @Override
             public void onClick(View view) {
                 if (carClickListener != null) {
-                    carClickListener.carClick(0);
+                    carClickListener.carClick(carsData.get(0));
                 }
             }
         });
@@ -152,7 +156,7 @@ public class CarLayout extends RelativeLayout {
         car = new TextView(getContext());
         car.setTextColor(carTextColor);
         car.setTextSize(carTextSize);
-        car.setText(carsData.get(1));
+        car.setText(carsData.get(1).getCarName());
         car.setGravity(Gravity.CENTER);
         carIconRes.setBounds(0, 0, carIconRes.getMinimumWidth(), carIconRes.getMinimumHeight());
         car.setCompoundDrawables(carIconRes, null, null, null);
@@ -168,7 +172,7 @@ public class CarLayout extends RelativeLayout {
             @Override
             public void onClick(View view) {
                 if (carClickListener != null) {
-                    carClickListener.carClick(1);
+                    carClickListener.carClick(carsData.get(1));
                 }
             }
         });
@@ -177,7 +181,7 @@ public class CarLayout extends RelativeLayout {
         car = new TextView(getContext());
         car.setTextColor(carTextColor);
         car.setTextSize(TypedValue.COMPLEX_UNIT_SP, carTextSize);
-        car.setText(carsData.get(2));
+        car.setText(carsData.get(2).getCarName());
         car.setGravity(Gravity.CENTER);
         carIconRes.setBounds(0, 0, carIconRes.getMinimumWidth(), carIconRes.getMinimumHeight());
         car.setCompoundDrawables(carIconRes, null, null, null);
@@ -193,7 +197,7 @@ public class CarLayout extends RelativeLayout {
             @Override
             public void onClick(View view) {
                 if (carClickListener != null) {
-                    carClickListener.carClick(2);
+                    carClickListener.carClick(carsData.get(2));
                 }
             }
         });
@@ -218,7 +222,12 @@ public class CarLayout extends RelativeLayout {
     private void carRun(TextView textView) {
         ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(textView, "translationX", textView.getX(), getWidth());
         objectAnimator.setDuration(2000);
-        objectAnimator.setInterpolator(new LinearInterpolator());
+        int nextInt = new Random().nextInt(100);
+        if (nextInt > 50) {
+            objectAnimator.setInterpolator(new BounceInterpolator());
+        } else {
+            objectAnimator.setInterpolator(new LinearInterpolator());
+        }
         objectAnimator.setRepeatCount(ValueAnimator.INFINITE);
         objectAnimator.setRepeatMode(ValueAnimator.REVERSE);
         objectAnimator.start();

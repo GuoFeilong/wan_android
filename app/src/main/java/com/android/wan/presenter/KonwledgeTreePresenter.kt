@@ -62,5 +62,7 @@ class KonwledgeTreePresenter : BasePresenter<KnowledgeFragmentView>() {
 
     }
 
-
+    fun getCarData() {
+        knowledgeFragmentView?.bindCarData(knowledgeTreeMoudle.getCarData())
+    }
 }

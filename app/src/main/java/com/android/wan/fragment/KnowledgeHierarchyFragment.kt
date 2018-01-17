@@ -13,6 +13,7 @@ import com.android.wan.callback.OnCarClickListener
 import com.android.wan.callback.OnKnowlegeTreeClickListener
 import com.android.wan.customwidget.CarLayout
 import com.android.wan.net.response.KnowledgeHierarchyResponse
+import com.android.wan.net.response.entity.CarData
 import com.android.wan.presenter.KonwledgeTreePresenter
 import com.android.wan.view.KnowledgeFragmentView
 
@@ -20,6 +21,7 @@ import com.android.wan.view.KnowledgeFragmentView
  * @author by 有人@我 on 2018/1/12.
  */
 class KnowledgeHierarchyFragment : AbstractFragment(), KnowledgeFragmentView {
+
     var knowledgeTreePresenter: KonwledgeTreePresenter? = null
     var knowledgeTreeRecycler: RecyclerView? = null
     var knowledgeAdapter: KnowledgeTreeAdapter? = null
@@ -37,6 +39,10 @@ class KnowledgeHierarchyFragment : AbstractFragment(), KnowledgeFragmentView {
                 knowledgeAdapter?.notifyDataSetChanged()
             }
         }
+    }
+
+    override fun bindCarData(carData: List<CarData>) {
+        carLayout?.setCarsData(carData)
     }
 
     override fun hideLoading() {
@@ -78,10 +84,10 @@ class KnowledgeHierarchyFragment : AbstractFragment(), KnowledgeFragmentView {
 
     override fun initEvent() {
         knowledgeTreePresenter?.getKnowledgeTree()
-        carLayout?.setCarsData(listOf("青娱乐", "五月天", "1024"))
+        knowledgeTreePresenter?.getCarData()
         carLayout?.setCarClickListener(object : OnCarClickListener {
-            override fun carClick(int: Int) {
-                Toast.makeText(activityContext, "打开${int}", Toast.LENGTH_SHORT).show()
+            override fun carClick(carData: CarData) {
+                Toast.makeText(activityContext, "打开${carData.carName}", Toast.LENGTH_SHORT).show()
             }
         })
     }

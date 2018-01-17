@@ -4,6 +4,7 @@ import RetrofitHelper
 import android.util.Log
 import com.android.wan.callback.MvpCallback
 import com.android.wan.net.response.KnowledgeHierarchyResponse
+import com.android.wan.net.response.entity.CarData
 import rx.Subscriber
 import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
@@ -41,4 +42,11 @@ class KnowledgeTreeMoudle {
                 })
     }
 
+    fun getCarData(): List<CarData> {
+        return listOf(
+                CarData("在线直播青娱乐", "www.qyl.com"),
+                CarData("没有广告youjizz", "www.youjizz.com"),
+                CarData("全民最爱1024", "www.t66y.com")
+        )
+    }
 }
