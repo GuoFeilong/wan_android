@@ -89,7 +89,6 @@ class KnowledgeHierarchyFragment : AbstractFragment(), KnowledgeFragmentView {
                 val intent = Intent(activityContext, ArticleListActivity::class.java)
                 intent.putExtra(Constant.BUNDLE_KEY_4_ARITICLE_TYPE, ariticleBundle)
                 startActivity(intent)
-                Toast.makeText(activityContext, "树杈标题${t.name}", Toast.LENGTH_SHORT).show()
             }
 
             override fun onKnowlegeTreeLeafClick(leaf: KnowledgeHierarchyResponse.Data.Children) {
@@ -104,7 +103,6 @@ class KnowledgeHierarchyFragment : AbstractFragment(), KnowledgeFragmentView {
                 val intent = Intent(activityContext, ArticleListActivity::class.java)
                 intent.putExtra(Constant.BUNDLE_KEY_4_ARITICLE_TYPE, ariticleBundle)
                 startActivity(intent)
-                Toast.makeText(activityContext, "叶子标题${leaf.name}", Toast.LENGTH_SHORT).show()
             }
 
         }
