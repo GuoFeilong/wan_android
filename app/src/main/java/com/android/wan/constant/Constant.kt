@@ -20,5 +20,9 @@ object Constant {
      * webview的url
      */
     const val BUNDLE_KEY_4_WEB_URL = "bundle_key_4_web_url"
+    /**
+     * 文章列表的bundlekey
+     */
+    const val BUNDLE_KEY_4_ARITICLE_TYPE = "bundle_key_4_ariticle_type"
 
 }

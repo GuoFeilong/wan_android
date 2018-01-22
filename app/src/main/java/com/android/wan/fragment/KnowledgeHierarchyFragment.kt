@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Toast
 import com.android.wan.R
+import com.android.wan.activity.ArticleListActivity
 import com.android.wan.activity.BrowserActivity
 import com.android.wan.adapter.KnowledgeTreeAdapter
 import com.android.wan.base.AbstractFragment
@@ -15,9 +16,11 @@ import com.android.wan.callback.OnKnowlegeTreeClickListener
 import com.android.wan.constant.Constant
 import com.android.wan.customwidget.CarLayout
 import com.android.wan.net.response.KnowledgeHierarchyResponse
+import com.android.wan.net.response.entity.AriticleBundleData
 import com.android.wan.net.response.entity.CarData
 import com.android.wan.presenter.KonwledgeTreePresenter
 import com.android.wan.view.KnowledgeFragmentView
+import java.util.ArrayList
 
 /**
  * @author by 有人@我 on 2018/1/12.
@@ -72,10 +75,35 @@ class KnowledgeHierarchyFragment : AbstractFragment(), KnowledgeFragmentView {
         knowledgeAdapter = KnowledgeTreeAdapter(activityContext!!)
         knowledgeAdapter?.knowlegetTreeClickListener = object : OnKnowlegeTreeClickListener<KnowledgeHierarchyResponse.Data> {
             override fun onRecyItemClick(position: Int, t: KnowledgeHierarchyResponse.Data) {
+                val children: List<KnowledgeHierarchyResponse.Data.Children> = t.children!!
+                val ariticleBundle = AriticleBundleData()
+                val typeList: List<AriticleBundleData.AriticleTypeData> = ArrayList<AriticleBundleData.AriticleTypeData>()
+                ariticleBundle.typeTitle = t.name
+                for (leaf: KnowledgeHierarchyResponse.Data.Children in children) {
+                    val typeTemp: AriticleBundleData.AriticleTypeData = AriticleBundleData.AriticleTypeData()
+                    typeTemp.typeCid = leaf.id
+                    typeTemp.typeName = leaf.name
+                    (typeList as ArrayList).add(typeTemp)
+                }
+                ariticleBundle.typeList = typeList
+                val intent = Intent(activityContext, ArticleListActivity::class.java)
+                intent.putExtra(Constant.BUNDLE_KEY_4_ARITICLE_TYPE, ariticleBundle)
+                startActivity(intent)
                 Toast.makeText(activityContext, "树杈标题${t.name}", Toast.LENGTH_SHORT).show()
             }
 
             override fun onKnowlegeTreeLeafClick(leaf: KnowledgeHierarchyResponse.Data.Children) {
+                val ariticleBundle = AriticleBundleData()
+                val typeList: List<AriticleBundleData.AriticleTypeData> = ArrayList<AriticleBundleData.AriticleTypeData>()
+                ariticleBundle.typeTitle = leaf.name
+                val typeTemp: AriticleBundleData.AriticleTypeData = AriticleBundleData.AriticleTypeData()
+                typeTemp.typeCid = leaf.id
+                typeTemp.typeName = leaf.name
+                (typeList as ArrayList).add(typeTemp)
+                ariticleBundle.typeList = typeList
+                val intent = Intent(activityContext, ArticleListActivity::class.java)
+                intent.putExtra(Constant.BUNDLE_KEY_4_ARITICLE_TYPE, ariticleBundle)
+                startActivity(intent)
                 Toast.makeText(activityContext, "叶子标题${leaf.name}", Toast.LENGTH_SHORT).show()
             }
 

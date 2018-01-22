@@ -1,7 +1,10 @@
+import com.android.wan.net.response.ArticleListResponse
 import com.android.wan.net.response.BannerResponse
 import com.android.wan.net.response.HomeListResponse
 import com.android.wan.net.response.KnowledgeHierarchyResponse
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 import rx.Observable
 
 /**
@@ -24,18 +27,15 @@ interface RetrofitService {
      */
     @GET("/tree/json")
     fun getKnowledgeHierarchyList(): Observable<KnowledgeHierarchyResponse>
-//
-//    /**
-//     * 知识体系下的文章
-//     * http://www.wanandroid.com/article/list/0/json?cid=168
-//     * @param page page
-//     * @param cid cid
-//     */
-//    @GET("/article/list/{page}/json")
-//    fun getArticleList(
-//            @Path("page") page: Int,
-//            @Query("cid") cid: Int
-//    ): Deferred<ArticleListResponse>
+
+    /**
+     * 知识体系下的文章
+     * http://www.wanandroid.com/article/list/0/json?cid=168
+     * @param page page
+     * @param cid cid
+     */
+    @GET("/article/list/{page}/json")
+    fun getArticleList(@Path("page") page: Int, @Query("cid") cid: Int): Observable<ArticleListResponse>
 //
 //    /**
 //     * 常用网站
