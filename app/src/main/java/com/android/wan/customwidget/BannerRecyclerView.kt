@@ -19,7 +19,7 @@ class BannerRecyclerView @JvmOverloads constructor(
 
     var subscriber: Subscription? = null
     var index: Int = 0
-    var intervalTime: Long = 2
+    var intervalTime: Long = 5
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
 

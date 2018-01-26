@@ -35,15 +35,15 @@ class ArticleAdapter(mContext: Context) : RecyclerView.Adapter<RecyclerView.View
                 holder.uploadTime.text = currentData.niceDate
 
                 holder.favorite.setOnClickListener {
-                    articleClickListener?.onArticleLikeClick()
+                    articleClickListener?.onArticleLikeClick(currentData)
                 }
 
                 holder.authName.setOnClickListener {
-                    articleClickListener?.onArticleAuthClick()
+                    articleClickListener?.onArticleAuthClick(currentData)
                 }
 
                 holder.chapterName.setOnClickListener {
-                    articleClickListener?.onArticleTypeClick()
+                    articleClickListener?.onArticleTypeClick(currentData)
                 }
             }
         }

@@ -34,22 +34,24 @@
         app:layout_constraintTop_toTopOf="@+id/circleImageIcon"
         tool:text="我是作者" />
 
-    <TextView
+    <com.android.wan.customwidget.MarqueeTextView
         android:id="@+id/ariticleTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dimens_8_dp"
         android:layout_marginRight="@dimen/dimens_8_dp"
         android:layout_marginTop="@dimen/dimens_8_dp"
-        android:ellipsize="end"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:lineSpacingMultiplier="1.2"
-        android:maxLines="2"
+        android:singleLine="true"
         android:textColor="@color/color_333333"
         android:textSize="@dimen/dimens_16_sp"
         app:layout_constraintLeft_toRightOf="@+id/circleImageIcon"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/authName"
-        tool:text="孙菲菲" />
+        tool:text="上课解放军考试就风控加考试就付款数据放开考试就付款数据放开就是开放就开始就分开是放假科三监考是就分开" />
 
 
     <TextView
@@ -58,6 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dimens_8_dp"
         android:layout_marginLeft="@dimen/dimens_8_dp"
+        android:layout_marginTop="@dimen/dimens_8_dp"
         android:textColor="?attr/colorPrimary"
         android:textSize="@dimen/dimens_14_sp"
         app:layout_constraintBottom_toBottomOf="parent"

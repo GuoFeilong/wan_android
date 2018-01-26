@@ -1,5 +1,6 @@
 package com.android.wan.fragment
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
@@ -9,60 +10,39 @@ import com.android.wan.R
 import com.android.wan.activity.ArticleListActivity
 import com.android.wan.activity.BrowserActivity
 import com.android.wan.adapter.ArticleAdapter
-import com.android.wan.adapter.BannerAdapter
 import com.android.wan.base.AbstractFragment
 import com.android.wan.callback.OnArticleClickListener
-import com.android.wan.callback.OnRecyItemClickListener
 import com.android.wan.constant.Constant
-import com.android.wan.customwidget.BannerRecyclerView
-import com.android.wan.net.response.BannerResponse
-import com.android.wan.net.response.HomeListResponse
+import com.android.wan.net.response.ArticleListResponse
 import com.android.wan.net.response.entity.AriticleBundleData
 import com.android.wan.net.response.entity.Datas
-import com.android.wan.presenter.HomeFragmentPresenter
-import com.android.wan.view.HomeFragmentView
+import com.android.wan.presenter.ArticleListPresenter
+import com.android.wan.view.ArticleListView
 import com.jcodecraeer.xrecyclerview.ProgressStyle
 import com.jcodecraeer.xrecyclerview.XRecyclerView
-import java.util.*
+import java.util.ArrayList
 
-
+@SuppressLint("ValidFragment")
 /**
- * @author by 有人@我 on 2018/1/12.
+ * @author by 有人@我 on 18/1/26.
  */
-class HomeFragment : AbstractFragment(), HomeFragmentView {
-    var bannerRecycler: BannerRecyclerView? = null
-    var articleRecycler: XRecyclerView? = null
-    var bannerAdapter: BannerAdapter? = null
+class ArticleListFragment(var articleTitle: String, var cid: Int) : AbstractFragment(), ArticleListView {
+
     var articleAdapter: ArticleAdapter? = null
     var pageIndex: Int = 0
     var refresh: Boolean = false
+    var articleRecycler: XRecyclerView? = null
+    var articlePresenter: ArticleListPresenter? = null
+    var articleName: String? = articleTitle
 
     override fun showLoading() {
 
     }
 
-    override fun bindBannerData(bannerResponse: BannerResponse) {
-
-        bannerAdapter!!.itemClickListener = object : OnRecyItemClickListener<BannerResponse.Data> {
-            override fun onRecyItemClick(position: Int, t: BannerResponse.Data) {
-                val intent = Intent(activityContext, BrowserActivity::class.java)
-                intent.putExtra(Constant.BUNDLE_KEY_4_WEB_TITLE, t.title)
-                intent.putExtra(Constant.BUNDLE_KEY_4_WEB_URL, t.url)
-                startActivity(intent)
-            }
-        }
-        bannerAdapter?.mContext = activityContext
-        bannerAdapter?.bannerData = bannerResponse.data
-        bannerAdapter?.notifyDataSetChanged()
-        bannerRecycler?.bannerStart()
-
-    }
-
-    override fun bindHomeArticle(articleResponse: HomeListResponse) {
-
-        when (articleResponse.errorCode) {
+    override fun bindArticleList(articleListResponse: ArticleListResponse) {
+        when (articleListResponse.errorCode) {
             0 -> {
-                articleAdapter?.setArticleData(refresh, articleResponse.data.datas!!)
+                articleAdapter?.setArticleData(refresh, articleListResponse.data.datas!!)
                 articleAdapter?.articleClickListener = object : OnArticleClickListener<Datas> {
                     override fun onRecyItemClick(position: Int, t: Datas) {
                         val intent = Intent(activityContext, BrowserActivity::class.java)
@@ -76,7 +56,7 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
                         val typeList: List<AriticleBundleData.AriticleTypeData> = ArrayList<AriticleBundleData.AriticleTypeData>()
                         ariticleBundle.typeTitle = article.chapterName
                         val typeTemp: AriticleBundleData.AriticleTypeData = AriticleBundleData.AriticleTypeData()
-                        typeTemp.typeCid = article.chapterId
+                        typeTemp.typeCid = article.id
                         typeTemp.typeName = article.chapterName
                         (typeList as ArrayList).add(typeTemp)
                         ariticleBundle.typeList = typeList
@@ -102,10 +82,7 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
                 }
             }
         }
-    }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
     }
 
     override fun hideLoading() {
@@ -124,31 +101,19 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
         return activityContext!!
     }
 
-    var homeFragmentPresenter: HomeFragmentPresenter? = null
 
     override fun setFragmentLayout(): Int {
-        return R.layout.fragment_home
+        return R.layout.fragment_article_list
     }
 
     override fun initData() {
-        homeFragmentPresenter = HomeFragmentPresenter()
-        homeFragmentPresenter?.attachView(this)
-        bannerAdapter = BannerAdapter(activityContext!!)
+        articlePresenter = ArticleListPresenter()
+        articlePresenter?.attachView(this)
         articleAdapter = ArticleAdapter(activityContext!!)
-
-    }
-
-    override fun initView(rootView: View) {
-        bannerRecycler = rootView.findViewById(R.id.bannerRecycler)
-        bannerRecycler?.layoutManager = LinearLayoutManager(activityContext, LinearLayoutManager.HORIZONTAL, false)
-        bannerRecycler?.adapter = bannerAdapter
-
-        articleRecycler = rootView.findViewById(R.id.articleRecycler)
     }
 
     override fun initEvent() {
-        homeFragmentPresenter?.getBannerData()
-        homeFragmentPresenter?.getHomeListArticle(pageIndex)
+        articlePresenter?.getArticleListData(pageIndex, cid)
         articleRecycler?.layoutManager = LinearLayoutManager(activityContext)
 
         articleRecycler?.setPullRefreshEnabled(true)
@@ -160,16 +125,19 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
             override fun onLoadMore() {
                 pageIndex++
                 refresh = false
-                homeFragmentPresenter?.getHomeListArticle(pageIndex)
+                articlePresenter?.getArticleListData(pageIndex, cid)
             }
 
             override fun onRefresh() {
                 refresh = true
                 pageIndex = 0
-                homeFragmentPresenter?.getHomeListArticle(pageIndex)
+                articlePresenter?.getArticleListData(pageIndex, cid)
             }
         })
+    }
 
+    override fun initView(rootView: View) {
+        articleRecycler = rootView.findViewById(R.id.articleRecycler)
     }
 
 }

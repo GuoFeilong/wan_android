@@ -4,9 +4,12 @@ import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.Toolbar
 import com.android.wan.R
+import com.android.wan.adapter.ArticleFragmentAdapter
 import com.android.wan.base.AbstractActivity
 import com.android.wan.constant.Constant
+import com.android.wan.fragment.ArticleListFragment
 import com.android.wan.net.response.entity.AriticleBundleData
+import java.util.ArrayList
 
 /**
  * @author by 有人@我 on 18/1/22.
@@ -17,10 +20,14 @@ class ArticleListActivity : AbstractActivity() {
     var toolbar: Toolbar? = null
     var articleBundleData: AriticleBundleData? = null
     var articleTtile: String? = null
+    var articleFragments: List<ArticleListFragment>? = null
+    var articleFragmentAdapter: ArticleFragmentAdapter? = null
 
     override fun initData() {
         articleBundleData = intent.getSerializableExtra(Constant.BUNDLE_KEY_4_ARITICLE_TYPE) as AriticleBundleData
         articleTtile = articleBundleData?.typeTitle
+        articleFragments = ArrayList<ArticleListFragment>()
+        articleFragmentAdapter = ArticleFragmentAdapter(supportFragmentManager)
     }
 
     override fun initEvent() {
@@ -38,6 +45,7 @@ class ArticleListActivity : AbstractActivity() {
             }
 
         })
+        articleViewPager?.adapter = articleFragmentAdapter
     }
 
     override fun setContentLayoutId(): Int {
@@ -53,6 +61,7 @@ class ArticleListActivity : AbstractActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         creatTabs()
+        articleFragmentAdapter?.articleFragments = articleFragments
         articleTabLayout?.setupWithViewPager(articleViewPager)
     }
 
@@ -69,6 +78,10 @@ class ArticleListActivity : AbstractActivity() {
                 tab.text = tempData.typeName
                 tab.setTag(tempData)
                 articleTabLayout?.addTab(tab)
+
+                val articleFragment = ArticleListFragment(tempData.typeName!!, tempData.typeCid)
+                articleFragment.articleTitle = tempData.typeName!!
+                (articleFragments as ArrayList).add(articleFragment)
             }
         }
     }
