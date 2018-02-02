@@ -42,7 +42,7 @@ class BannerRecyclerView @JvmOverloads constructor(
     fun bannerStart() {
         val itemCount = adapter?.itemCount
         subscriber?.unsubscribe()
-        subscriber = Observable.interval(intervalTime, TimeUnit.SECONDS)
+        subscriber = Observable.interval(2, intervalTime, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {

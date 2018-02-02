@@ -18,6 +18,7 @@ import com.android.wan.customwidget.BannerRecyclerView
 import com.android.wan.net.response.BannerResponse
 import com.android.wan.net.response.HomeListResponse
 import com.android.wan.net.response.entity.AriticleBundleData
+import com.android.wan.net.response.entity.Data
 import com.android.wan.net.response.entity.Datas
 import com.android.wan.presenter.HomeFragmentPresenter
 import com.android.wan.view.HomeFragmentView
@@ -42,7 +43,13 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
     }
 
     override fun bindBannerData(bannerResponse: BannerResponse) {
+        val soHotPic = "http://www.zhlzw.com/UploadFiles/Article_UploadFiles/201204/20120422013455474.JPG"
+        val soHotDesc = "隐藏N年的Jsoup学习资料,兴趣是最好的老师"
+        val soHotGitHub = "https://github.com/GuoFeilong/SoHOT"
 
+        val soHotData: BannerResponse.Data = BannerResponse.Data(9, soHotGitHub, soHotPic, soHotDesc, soHotDesc, 0, 0, 0)
+        val list = bannerResponse.data
+        (list as ArrayList<BannerResponse.Data>).add(0,soHotData)
         bannerAdapter!!.itemClickListener = object : OnRecyItemClickListener<BannerResponse.Data> {
             override fun onRecyItemClick(position: Int, t: BannerResponse.Data) {
                 val intent = Intent(activityContext, BrowserActivity::class.java)
@@ -52,7 +59,7 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
             }
         }
         bannerAdapter?.mContext = activityContext
-        bannerAdapter?.bannerData = bannerResponse.data
+        bannerAdapter?.bannerData = list
         bannerAdapter?.notifyDataSetChanged()
         bannerRecycler?.bannerStart()
 
