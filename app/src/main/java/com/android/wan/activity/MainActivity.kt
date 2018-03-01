@@ -70,8 +70,8 @@ class MainActivity : AbstractActivity(), HomeMainView {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
-                applyStatusBarColor(R.color.color_ff8a65)
-                navigation.setBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.color_ff8a65))
+                applyStatusBarColor(R.color.color_78AAF9)
+                navigation.setBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.color_78AAF9))
                 homeMainPresenter.showCurrentFragment(R.id.fl_fragment_container, 2)
                 return@OnNavigationItemSelectedListener true
             }
