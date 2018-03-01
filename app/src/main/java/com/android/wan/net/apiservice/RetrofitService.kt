@@ -1,10 +1,5 @@
-import com.android.wan.net.response.ArticleListResponse
-import com.android.wan.net.response.BannerResponse
-import com.android.wan.net.response.HomeListResponse
-import com.android.wan.net.response.KnowledgeHierarchyResponse
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import com.android.wan.net.response.*
+import retrofit2.http.*
 import rx.Observable
 
 /**
@@ -36,33 +31,30 @@ interface RetrofitService {
      */
     @GET("/article/list/{page}/json")
     fun getArticleList(@Path("page") page: Int, @Query("cid") cid: Int): Observable<ArticleListResponse>
-//
-//    /**
-//     * 常用网站
-//     * http://www.wanandroid.com/friend/json
-//     */
-//    @GET("/friend/json")
-//    fun getFriendList(): Deferred<FriendListResponse>
-//
-//    /**
-//     * 大家都在搜
-//     * http://www.wanandroid.com/hotkey/json
-//     */
-//    @GET("/hotkey/json")
-//    fun getHotKeyList(): Deferred<HotKeyResponse>
-//
-//    /**
-//     * 搜索
-//     * http://www.wanandroid.com/article/query/0/json
-//     * @param page page
-//     * @param k POST search key
-//     */
-//    @POST("/article/query/{page}/json")
-//    @FormUrlEncoded
-//    fun getSearchList(
-//            @Path("page") page: Int,
-//            @Field("k") k: String
-//    ): Deferred<HomeListResponse>
+
+    /**
+     * 常用网站
+     * http://www.wanandroid.com/friend/json
+     */
+    @GET("/friend/json")
+    fun getFriendList(): Observable<FriendListResponse>
+
+    /**
+     * 大家都在搜
+     * http://www.wanandroid.com/hotkey/json
+     */
+    @GET("/hotkey/json")
+    fun getHotKeyList(): Observable<HotKeyResponse>
+
+    /**
+     * 搜索
+     * http://www.wanandroid.com/article/query/0/json
+     * @param page page
+     * @param k POST search key
+     */
+    @POST("/article/query/{page}/json")
+    @FormUrlEncoded
+    fun getSearchList(@Path("page") page: Int, @Field("k") k: String): Observable<HomeListResponse>
 //
 //    /**
 //     * 登录

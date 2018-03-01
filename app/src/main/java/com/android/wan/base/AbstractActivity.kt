@@ -18,7 +18,6 @@ abstract class AbstractActivity : AppCompatActivity() {
     protected var mImmersionBar: ImmersionBar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-//        Aesthetic.attach(this)
         super.onCreate(savedInstanceState)
         mImmersionBar = ImmersionBar.with(this)
         mImmersionBar!!.init()
@@ -30,11 +29,9 @@ abstract class AbstractActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-//        Aesthetic.resume(this)
     }
 
     override fun onPause() {
-//        Aesthetic.pause(this)
         super.onPause()
     }
 
