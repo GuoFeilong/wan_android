@@ -63,6 +63,7 @@ class ArticleListActivity : AbstractActivity() {
         creatTabs()
         articleFragmentAdapter?.articleFragments = articleFragments
         articleTabLayout?.setupWithViewPager(articleViewPager)
+        applyStatusBarColor(R.color.color_ffcc80)
     }
 
     override fun onSupportNavigateUp(): Boolean {

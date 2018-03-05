@@ -7,6 +7,7 @@ import android.widget.Toast
 import com.android.wan.R
 import com.android.wan.base.AbstractActivity
 import com.android.wan.customwidget.FlowLayout
+import com.android.wan.net.response.HomeListResponse
 import com.android.wan.net.response.HotKeyResponse
 import com.android.wan.presenter.HotSearchPresenter
 import com.android.wan.view.HotSearchView
@@ -16,6 +17,7 @@ import java.util.*
  * @author by 有人@我 on 18/3/5.
  */
 class HotKeyActivity : AbstractActivity(), HotSearchView {
+
     var toolbar: Toolbar? = null
     var hotKeyFlow: FlowLayout? = null
     var hotSearchPresenter: HotSearchPresenter? = null
@@ -68,11 +70,15 @@ class HotKeyActivity : AbstractActivity(), HotSearchView {
 
                 hotKeyFlow?.setFlowChildClickListener(object : FlowLayout.OnFlowChildClickListener {
                     override fun onChildClick(position: Int) {
-                        Log.e("搜索", "--->" + childrens.get(position).toString())
+                        hotSearchPresenter?.getHotSearchResult(0, childrens.get(position).name)
                     }
                 })
             }
         }
+    }
+
+    override fun bindHotSearchResult(hotSearchResult: HomeListResponse) {
+        Log.e("搜索", "--->" + hotSearchResult.toString())
     }
 
     override fun hideLoading() {

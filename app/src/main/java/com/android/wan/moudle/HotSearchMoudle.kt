@@ -2,6 +2,7 @@ package com.android.wan.moudle
 
 import RetrofitHelper
 import com.android.wan.callback.MvpCallback
+import com.android.wan.net.response.HomeListResponse
 import com.android.wan.net.response.HotKeyResponse
 import rx.Subscriber
 import rx.Subscription
@@ -36,5 +37,30 @@ class HotSearchMoudle {
                     }
                 })
 
+    }
+
+    fun getHotSearchResult(page: Int, searchKey: String, mvpCallback: MvpCallback<HomeListResponse>) {
+        var subscription: Subscription? = null
+        subscription?.unsubscribe()
+        subscription = RetrofitHelper.retrofitService.getSearchList(page, searchKey)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe {
+                    mvpCallback.showLoading()
+                }
+                .subscribe(object : Subscriber<HomeListResponse>() {
+                    override fun onCompleted() {
+                        subscription?.unsubscribe()
+                        mvpCallback.dissMissLoading()
+                    }
+
+                    override fun onError(e: Throwable?) {
+                        mvpCallback.onFailure(e.toString())
+                    }
+
+                    override fun onNext(t: HomeListResponse?) {
+                        mvpCallback.onSuccess(t!!)
+                    }
+                })
     }
 }
