@@ -1,10 +1,14 @@
 package com.android.wan.fragment
 
+import android.content.Intent
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.android.wan.R
+import com.android.wan.activity.BrowserActivity
+import com.android.wan.activity.CommonWebAddressActivity
 import com.android.wan.base.AbstractFragment
+import com.android.wan.constant.Constant
 import com.android.wan.customwidget.UserCenterItemView
 
 /**
@@ -57,7 +61,7 @@ class UserCenterFragment : AbstractFragment(), View.OnClickListener {
                 Toast.makeText(activityContext, "热搜", Toast.LENGTH_SHORT).show()
             }
             R.id.civ_web_address -> {
-                Toast.makeText(activityContext, "常用网站", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(activityContext, CommonWebAddressActivity::class.java))
             }
             R.id.civ_so_hot -> {
                 Toast.makeText(activityContext, "爬虫", Toast.LENGTH_SHORT).show()
