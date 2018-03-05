@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.android.wan.R
 import com.android.wan.callback.OnArticleClickListener
 import com.android.wan.net.response.entity.Datas
+import com.android.wan.utils.HtmlUtil
 import de.hdodenhof.circleimageview.CircleImageView
 
 /**
@@ -30,7 +31,7 @@ class ArticleAdapter(mContext: Context) : RecyclerView.Adapter<RecyclerView.View
         when (holder) {
             is ArticleViewHoler -> {
                 holder.authName.text = currentData.author
-                holder.ariticleTitle.text = currentData.title
+                holder.ariticleTitle.text = HtmlUtil.htmlRemoveTag(currentData.title)
                 holder.chapterName.text = currentData.chapterName
                 holder.uploadTime.text = currentData.niceDate
 
@@ -68,6 +69,10 @@ class ArticleAdapter(mContext: Context) : RecyclerView.Adapter<RecyclerView.View
             (articleList as ArrayList<Datas>).addAll(articleData)
         }
         notifyDataSetChanged()
+    }
+
+    fun clearArticleData() {
+        (articleList as ArrayList<Datas>).clear()
     }
 
     class ArticleViewHoler(itemView: View) : RecyclerView.ViewHolder(itemView) {

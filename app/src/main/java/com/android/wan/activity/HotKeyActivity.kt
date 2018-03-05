@@ -1,16 +1,26 @@
 package com.android.wan.activity
 
 import android.content.Context
+import android.content.Intent
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.widget.Toast
 import com.android.wan.R
+import com.android.wan.adapter.ArticleAdapter
 import com.android.wan.base.AbstractActivity
+import com.android.wan.callback.OnArticleClickListener
+import com.android.wan.constant.Constant
 import com.android.wan.customwidget.FlowLayout
 import com.android.wan.net.response.HomeListResponse
 import com.android.wan.net.response.HotKeyResponse
+import com.android.wan.net.response.entity.AriticleBundleData
+import com.android.wan.net.response.entity.Datas
 import com.android.wan.presenter.HotSearchPresenter
+import com.android.wan.utils.HtmlUtil
 import com.android.wan.view.HotSearchView
+import com.jcodecraeer.xrecyclerview.ProgressStyle
+import com.jcodecraeer.xrecyclerview.XRecyclerView
 import java.util.*
 
 /**
@@ -20,15 +30,43 @@ class HotKeyActivity : AbstractActivity(), HotSearchView {
 
     var toolbar: Toolbar? = null
     var hotKeyFlow: FlowLayout? = null
+    var hotKeySearchResult: XRecyclerView? = null
     var hotSearchPresenter: HotSearchPresenter? = null
+    var articleAdapter: ArticleAdapter? = null
+    var pageIndex: Int = 0
+    var refresh: Boolean = false
+    var clearFlag: Boolean = false
+    var currentSearchKey: String = ""
+
 
     override fun initData() {
+        articleAdapter = ArticleAdapter(this)
         hotSearchPresenter = HotSearchPresenter()
         hotSearchPresenter?.attachView(this)
     }
 
     override fun initEvent() {
         hotSearchPresenter?.getHotSearchKeys()
+        hotKeySearchResult?.layoutManager = LinearLayoutManager(this)
+
+        hotKeySearchResult?.setPullRefreshEnabled(true)
+        hotKeySearchResult?.setLoadingMoreEnabled(true)
+        hotKeySearchResult?.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader)
+        hotKeySearchResult?.setLoadingMoreProgressStyle(ProgressStyle.LineScalePulseOutRapid)
+        hotKeySearchResult?.adapter = articleAdapter
+        hotKeySearchResult?.setLoadingListener(object : XRecyclerView.LoadingListener {
+            override fun onLoadMore() {
+                pageIndex++
+                refresh = false
+                hotSearchPresenter?.getHotSearchResult(pageIndex, currentSearchKey)
+            }
+
+            override fun onRefresh() {
+                refresh = true
+                pageIndex = 0
+                hotSearchPresenter?.getHotSearchResult(pageIndex, currentSearchKey)
+            }
+        })
     }
 
     override fun setContentLayoutId(): Int {
@@ -38,6 +76,7 @@ class HotKeyActivity : AbstractActivity(), HotSearchView {
     override fun initView() {
         hotKeyFlow = findViewById(R.id.fl_hot_key)
         toolbar = findViewById(R.id.toolbar)
+        hotKeySearchResult = findViewById(R.id.xrv_search_list)
         toolbar?.setTitle("热搜排行")
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -68,9 +107,15 @@ class HotKeyActivity : AbstractActivity(), HotSearchView {
                 hotKeyFlow?.removeAllViews()
                 hotKeyFlow?.addViewText(knowlegeFlowTitles)
 
+                // 初始化默认请求第一个
+                hotSearchPresenter?.getHotSearchResult(pageIndex, childrens.get(0).name)
+
                 hotKeyFlow?.setFlowChildClickListener(object : FlowLayout.OnFlowChildClickListener {
                     override fun onChildClick(position: Int) {
-                        hotSearchPresenter?.getHotSearchResult(0, childrens.get(position).name)
+                        clearFlag = true
+                        currentSearchKey = childrens.get(position).name
+                        pageIndex = 0
+                        hotSearchPresenter?.getHotSearchResult(pageIndex, childrens.get(position).name)
                     }
                 })
             }
@@ -78,7 +123,57 @@ class HotKeyActivity : AbstractActivity(), HotSearchView {
     }
 
     override fun bindHotSearchResult(hotSearchResult: HomeListResponse) {
-        Log.e("搜索", "--->" + hotSearchResult.toString())
+        when (hotSearchResult.errorCode) {
+            0 -> {
+                when (hotSearchResult.errorCode) {
+                    0 -> {
+                        if (clearFlag) {
+                            articleAdapter?.clearArticleData()
+                        }
+                        articleAdapter?.setArticleData(refresh, hotSearchResult.data.datas!!)
+                        articleAdapter?.articleClickListener = object : OnArticleClickListener<Datas> {
+                            override fun onRecyItemClick(position: Int, t: Datas) {
+                                val intent = Intent(this@HotKeyActivity, BrowserActivity::class.java)
+                                intent.putExtra(Constant.BUNDLE_KEY_4_WEB_TITLE, HtmlUtil.htmlRemoveTag(t.title))
+                                intent.putExtra(Constant.BUNDLE_KEY_4_WEB_URL, t.link)
+                                startActivity(intent)
+                            }
+
+                            override fun onArticleTypeClick(article: Datas) {
+                                val ariticleBundle = AriticleBundleData()
+                                val typeList: List<AriticleBundleData.AriticleTypeData> = ArrayList<AriticleBundleData.AriticleTypeData>()
+                                ariticleBundle.typeTitle = article.chapterName
+                                val typeTemp: AriticleBundleData.AriticleTypeData = AriticleBundleData.AriticleTypeData()
+                                typeTemp.typeCid = article.chapterId
+                                typeTemp.typeName = article.chapterName
+                                (typeList as ArrayList).add(typeTemp)
+                                ariticleBundle.typeList = typeList
+                                val intent = Intent(this@HotKeyActivity, ArticleListActivity::class.java)
+                                intent.putExtra(Constant.BUNDLE_KEY_4_ARITICLE_TYPE, ariticleBundle)
+                                startActivity(intent)
+                            }
+
+                            override fun onArticleAuthClick(article: Datas) {
+                                Toast.makeText(this@HotKeyActivity, "作者", Toast.LENGTH_SHORT).show()
+                            }
+
+                            override fun onArticleLikeClick(article: Datas) {
+                                Toast.makeText(this@HotKeyActivity, "收藏", Toast.LENGTH_SHORT).show()
+                            }
+
+                        }
+                        articleAdapter?.notifyDataSetChanged()
+                        if (refresh) {
+                            hotKeySearchResult?.refreshComplete()
+                        } else {
+                            hotKeySearchResult?.loadMoreComplete()
+                        }
+                        clearFlag = false
+                    }
+                }
+
+            }
+        }
     }
 
     override fun hideLoading() {
