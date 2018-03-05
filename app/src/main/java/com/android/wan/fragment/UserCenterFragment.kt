@@ -64,7 +64,10 @@ class UserCenterFragment : AbstractFragment(), View.OnClickListener {
                 startActivity(Intent(activityContext, CommonWebAddressActivity::class.java))
             }
             R.id.civ_so_hot -> {
-                Toast.makeText(activityContext, "爬虫", Toast.LENGTH_SHORT).show()
+                val intent = Intent(activityContext, BrowserActivity::class.java)
+                intent.putExtra(Constant.BUNDLE_KEY_4_WEB_TITLE, "安卓爬网页")
+                intent.putExtra(Constant.BUNDLE_KEY_4_WEB_URL, "http://blog.csdn.net/givemeacondom/article/details/50526518")
+                startActivity(intent)
             }
             R.id.civ_about -> {
                 Toast.makeText(activityContext, "关于", Toast.LENGTH_SHORT).show()
