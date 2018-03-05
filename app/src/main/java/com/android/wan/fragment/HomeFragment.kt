@@ -44,7 +44,7 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
 
     override fun bindBannerData(bannerResponse: BannerResponse) {
         val soHotPic = "http://www.zhlzw.com/UploadFiles/Article_UploadFiles/201204/20120422013455474.JPG"
-        val soHotDesc = "隐藏N年的Jsoup学习资料,兴趣是最好的老师"
+        val soHotDesc = "隐藏N年的Jsoup学习资料,性趣是最好的老师"
         val soHotGitHub = "https://github.com/GuoFeilong/SoHOT"
 
         val soHotData: BannerResponse.Data = BannerResponse.Data(9, soHotGitHub, soHotPic, soHotDesc, soHotDesc, 0, 0, 0)
