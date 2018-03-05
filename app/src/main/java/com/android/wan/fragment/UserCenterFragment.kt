@@ -7,6 +7,7 @@ import android.widget.Toast
 import com.android.wan.R
 import com.android.wan.activity.BrowserActivity
 import com.android.wan.activity.CommonWebAddressActivity
+import com.android.wan.activity.HotKeyActivity
 import com.android.wan.base.AbstractFragment
 import com.android.wan.constant.Constant
 import com.android.wan.customwidget.UserCenterItemView
@@ -58,7 +59,7 @@ class UserCenterFragment : AbstractFragment(), View.OnClickListener {
                 Toast.makeText(activityContext, "收藏", Toast.LENGTH_SHORT).show()
             }
             R.id.civ_hot_search -> {
-                Toast.makeText(activityContext, "热搜", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(activityContext, HotKeyActivity::class.java))
             }
             R.id.civ_web_address -> {
                 startActivity(Intent(activityContext, CommonWebAddressActivity::class.java))

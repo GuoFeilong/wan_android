@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_80_dp"
+            android:background="@color/color_78AAF9"
+            android:fitsSystemWindows="true"
+            app:contentInsetStartWithNavigation="0dp"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:titleTextColor="@android:color/white"
+            tools:text="@string/app_name" />
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <TextView
+        android:id="@+id/tv_hot_key_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:background="@drawable/shape_login_regist"
+        android:paddingBottom="@dimen/dimens_4_dp"
+        android:paddingLeft="@dimen/dimens_8_dp"
+        android:paddingRight="@dimen/dimens_8_dp"
+        android:paddingTop="@dimen/dimens_4_dp"
+        android:text="大家都在搜"
+        android:textColor="@color/color_78AAF9"
+        android:textSize="@dimen/dimens_14_sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="@dimen/dimens_0_dp"
+        android:layout_height="@dimen/dimens_1_px"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:background="@color/color_f2f2f2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_hot_key_title" />
+
+    <com.android.wan.customwidget.FlowLayout
+        android:id="@+id/fl_hot_key"
+        android:layout_width="@dimen/dimens_0_dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_line"
+        app:lineSpacing="@dimen/dimens_12_dp"
+        app:maxLine="0">
+
+    </com.android.wan.customwidget.FlowLayout>
+
+
+    <TextView
+        android:id="@+id/tv_hot_key_title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:background="@drawable/shape_login_regist"
+        android:paddingBottom="@dimen/dimens_4_dp"
+        android:paddingLeft="@dimen/dimens_8_dp"
+        android:paddingRight="@dimen/dimens_8_dp"
+        android:paddingTop="@dimen/dimens_4_dp"
+        android:text="搜索结果"
+        android:textColor="@color/color_78AAF9"
+        android:textSize="@dimen/dimens_14_sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fl_hot_key" />
+
+
+    <View
+        android:id="@+id/view_line2"
+        android:layout_width="@dimen/dimens_0_dp"
+        android:layout_height="@dimen/dimens_1_px"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:background="@color/color_f2f2f2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_hot_key_title2" />
+
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/xrv_search_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_line2">
+
+    </com.jcodecraeer.xrecyclerview.XRecyclerView>
+
+
+</android.support.constraint.ConstraintLayout>

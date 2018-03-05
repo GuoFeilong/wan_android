@@ -38,6 +38,10 @@
             android:name=".activity.CommonWebAddressActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".activity.HotKeyActivity"
+            android:screenOrientation="portrait" />
+
 
     </application>
 

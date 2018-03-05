@@ -24,4 +24,5 @@
     <dimen name="dimens_132_dp">132dp</dimen>
     <dimen name="dimen_32_dp">32dp</dimen>
     <dimen name="dimens_4_dp">4dp</dimen>
+    <dimen name="dimens_1_dp">1dp</dimen>
 </resources>

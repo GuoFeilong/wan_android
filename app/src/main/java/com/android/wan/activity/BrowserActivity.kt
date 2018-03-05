@@ -34,6 +34,7 @@ class BrowserActivity : AbstractActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+        applyStatusBarColor(R.color.color_ffcc80)
     }
 
     override fun onSupportNavigateUp(): Boolean {
