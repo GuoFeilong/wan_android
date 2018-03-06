@@ -42,6 +42,9 @@
             android:name=".activity.HotKeyActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".activity.LoginAndSignUpActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 

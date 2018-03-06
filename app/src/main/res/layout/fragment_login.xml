@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.android.wan.customwidget.WithdrawClearEditText
+        android:id="@+id/wce_account"
+        android:layout_width="@dimen/dimens_0_dp"
+        android:layout_height="@dimen/dimens_60_dp"
+        android:background="@android:color/transparent"
+        android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        android:hint="请输入账号"
+        android:textColor="@color/color_333333"
+        android:textColorHint="@color/color_b2b2b2"
+        android:textSize="17sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="@dimen/dimens_0_dp"
+        android:layout_height="@dimen/dimens_1_px"
+        android:background="@color/color_f2f2f2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wce_account" />
+
+    <com.android.wan.customwidget.WithdrawClearEditText
+        android:id="@+id/wce_pass_word"
+        android:layout_width="@dimen/dimens_0_dp"
+        android:layout_height="@dimen/dimens_60_dp"
+        android:background="@android:color/transparent"
+        android:hint="请输入密码"
+        android:inputType="textPassword"
+        android:textColor="@color/color_333333"
+        android:textColorHint="@color/color_b2b2b2"
+        android:textSize="17sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line" />
+
+    <View
+        android:id="@+id/line2"
+        android:layout_width="@dimen/dimens_0_dp"
+        android:layout_height="@dimen/dimens_1_px"
+        android:background="@color/color_f2f2f2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wce_pass_word" />
+
+
+    <TextView
+        android:id="@+id/tv_login"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimens_40_dp"
+        android:layout_marginTop="@dimen/dimens_32_dp"
+        android:background="@drawable/shape_login"
+        android:gravity="center"
+        android:text="登录"
+        android:textColor="@android:color/white"
+        android:textSize="17sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line2"
+        app:layout_goneMarginTop="@dimen/dimen_32_dp" />
+
+
+</android.support.constraint.ConstraintLayout>

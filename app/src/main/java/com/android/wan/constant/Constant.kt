@@ -24,5 +24,13 @@ object Constant {
      * 文章列表的bundlekey
      */
     const val BUNDLE_KEY_4_ARITICLE_TYPE = "bundle_key_4_ariticle_type"
+    /**
+     * 显示登录
+     */
+    const val SHOW_LOGIN = 0
+    /**
+     * 显示注册
+     */
+    const val SHOW_SIGNUP = 1
 
 }

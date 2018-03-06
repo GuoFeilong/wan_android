@@ -4,4 +4,6 @@
     <string name="title_dashboard">知识</string>
     <string name="title_notifications">我的</string>
     <string name="login_regist">登录/注册</string>
+    <string name="sign_up">注册</string>
+    <string name="welcome_title">欢迎来到玩安卓</string>
 </resources>

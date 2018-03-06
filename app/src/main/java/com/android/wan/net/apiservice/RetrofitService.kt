@@ -55,34 +55,34 @@ interface RetrofitService {
     @POST("/article/query/{page}/json")
     @FormUrlEncoded
     fun getSearchList(@Path("page") page: Int, @Field("k") k: String): Observable<HomeListResponse>
-//
-//    /**
-//     * 登录
-//     * @param username username
-//     * @param password password
-//     * @return Deferred<LoginResponse>
-//     */
-//    @POST("/user/login")
-//    @FormUrlEncoded
-//    fun loginWanAndroid(
-//            @Field("username") username: String,
-//            @Field("password") password: String
-//    ): Deferred<LoginResponse>
-//
-//    /**
-//     * 注册
-//     * @param username username
-//     * @param password password
-//     * @param repassword repassword
-//     * @return Deferred<LoginResponse>
-//     */
-//    @POST("/user/register")
-//    @FormUrlEncoded
-//    fun registerWanAndroid(
-//            @Field("username") username: String,
-//            @Field("password") password: String,
-//            @Field("repassword") repassowrd: String
-//    ): Deferred<LoginResponse>
+
+    /**
+     * 登录
+     * @param username username
+     * @param password password
+     * @return Deferred<LoginResponse>
+     */
+    @POST("/user/login")
+    @FormUrlEncoded
+    fun loginWanAndroid(
+            @Field("username") username: String,
+            @Field("password") password: String)
+            : Observable<LoginResponse>
+
+    /**
+     * 注册
+     * @param username username
+     * @param password password
+     * @param repassword repassword
+     * @return Deferred<LoginResponse>
+     */
+    @POST("/user/register")
+    @FormUrlEncoded
+    fun registerWanAndroid(
+            @Field("username") username: String,
+            @Field("password") password: String,
+            @Field("repassword") repassowrd: String)
+            : Observable<LoginResponse>
 //
 //    /**
 //     * 获取自己收藏的文章列表

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <TextView
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:minHeight="@dimen/dimens_44_dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+    </TextView>
+
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="@dimen/dimens_44_dp"
+        android:layout_height="@dimen/dimens_44_dp"
+        android:padding="@dimen/dimens_8_dp"
+        android:src="@mipmap/arrow_button_normal"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+    <TextView
+        android:id="@+id/tv_sign_up"
+        android:layout_width="@dimen/dimens_44_dp"
+        android:layout_height="@dimen/dimens_44_dp"
+        android:gravity="center"
+        android:text="@string/sign_up"
+        android:textColor="@color/color_4499ff"
+        android:textSize="@dimen/dimens_15_sp"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+    <TextView
+        android:id="@+id/tv_welcome_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimens_12_dp"
+        android:gravity="center"
+        android:text="@string/welcome_title"
+        android:textColor="@color/color_4499ff"
+        android:textSize="@dimen/dimens_30_sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_back" />
+
+    <FrameLayout
+        android:id="@+id/fl_fragment_container"
+        android:layout_width="@dimen/dimens_0_dp"
+        android:layout_height="@dimen/dimens_0_dp"
+        android:layout_marginBottom="@dimen/dimen_32_dp"
+        android:layout_marginLeft="@dimen/dimen_32_dp"
+        android:layout_marginRight="@dimen/dimen_32_dp"
+        android:layout_marginTop="@dimen/dimen_32_dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_welcome_title">
+
+    </FrameLayout>
+
+
+</android.support.constraint.ConstraintLayout>
