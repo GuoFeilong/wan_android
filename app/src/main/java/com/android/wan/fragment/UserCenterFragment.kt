@@ -12,6 +12,7 @@ import com.android.wan.activity.CommonWebAddressActivity
 import com.android.wan.activity.HotKeyActivity
 import com.android.wan.activity.LoginAndSignUpActivity
 import com.android.wan.base.AbstractFragment
+import com.android.wan.base.Preference
 import com.android.wan.constant.Constant
 import com.android.wan.customwidget.UserCenterItemView
 import com.android.wan.net.response.LoginResponse
@@ -76,9 +77,9 @@ class UserCenterFragment : AbstractFragment(), View.OnClickListener {
                 startActivityForResult(intent, Constant.REQUEST_CODE_4_LOGIN)
             }
             R.id.civ_favorite -> {
-                if(SharedPreferencesUtil.login(activityContext!!)){
+                if (SharedPreferencesUtil.login(activityContext!!)) {
                     Toast.makeText(activityContext, "收藏", Toast.LENGTH_SHORT).show()
-                }else{
+                } else {
                     Toast.makeText(activityContext, "请先登录哦~(づ￣3￣)づ╭❤～", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -98,7 +99,8 @@ class UserCenterFragment : AbstractFragment(), View.OnClickListener {
                 Toast.makeText(activityContext, "关于", Toast.LENGTH_SHORT).show()
             }
             R.id.tv_logout -> {
-                SharedPreferencesUtil.saveShareData(activityContext!!,"",Constant.LOGIN_SUCCESS_KEY)
+                SharedPreferencesUtil.saveShareData(activityContext!!, "", Constant.LOGIN_SUCCESS_KEY)
+                Preference.clear()
                 showSignUp()
             }
         }
