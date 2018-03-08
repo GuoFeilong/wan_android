@@ -3,6 +3,8 @@ package com.android.wan.application
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.ComponentCallbacks2
+import android.content.Context
+import com.android.wan.base.Preference
 import com.bumptech.glide.Glide
 
 
@@ -11,8 +13,14 @@ import com.bumptech.glide.Glide
  */
 class Global : Application() {
 
+    companion object {
+        var applicationContext: Context? = null
+    }
+
     override fun onCreate() {
         super.onCreate()
+        Preference.setContext(applicationContext)
+        Global.Companion.applicationContext = this
     }
 
     @SuppressLint("SwitchIntDef")

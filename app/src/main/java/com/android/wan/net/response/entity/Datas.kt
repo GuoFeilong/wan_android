@@ -15,4 +15,5 @@ data class Datas(var id: Int,
                  var visible: Int,
                  var niceDate: String,
                  var courseId: Int,
-                 var collect: Boolean)
+                 var collect: Boolean,
+                 var postion: Int)

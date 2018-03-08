@@ -8,7 +8,9 @@ import android.widget.TextView
 import android.widget.Toast
 import com.android.wan.R
 import com.android.wan.base.AbstractFragment
+import com.android.wan.base.Preference
 import com.android.wan.callback.OnLoginSuccessListener
+import com.android.wan.constant.Constant
 import com.android.wan.customwidget.WithdrawClearEditText
 import com.android.wan.net.response.LoginResponse
 import com.android.wan.presenter.LoginPresenter
@@ -25,6 +27,19 @@ class LoginFragment : AbstractFragment(), LoginView {
     var password: WithdrawClearEditText? = null
     var login: TextView? = null
     var onLoginSuccessListener: OnLoginSuccessListener? = null
+
+    /**
+     * check login for SharedPreferences
+     */
+    private var isLogin: Boolean by Preference(Constant.LOGIN_KEY, false)
+    /**
+     * local username
+     */
+    private var user: String by Preference(Constant.USERNAME_KEY, "")
+    /**
+     * local password
+     */
+    private var pwd: String by Preference(Constant.PASSWORD_KEY, "")
 
     override fun setFragmentLayout(): Int {
         return R.layout.fragment_login

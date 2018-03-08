@@ -18,11 +18,12 @@ import com.android.wan.customwidget.BannerRecyclerView
 import com.android.wan.net.response.BannerResponse
 import com.android.wan.net.response.HomeListResponse
 import com.android.wan.net.response.entity.AriticleBundleData
-import com.android.wan.net.response.entity.Data
 import com.android.wan.net.response.entity.Datas
 import com.android.wan.presenter.HomeFragmentPresenter
+import com.android.wan.presenter.LikeAndUnLikePresenter
 import com.android.wan.utils.SharedPreferencesUtil
 import com.android.wan.view.HomeFragmentView
+import com.android.wan.view.LikeAndUnLikeView
 import com.jcodecraeer.xrecyclerview.ProgressStyle
 import com.jcodecraeer.xrecyclerview.XRecyclerView
 import java.util.*
@@ -31,13 +32,26 @@ import java.util.*
 /**
  * @author by 有人@我 on 2018/1/12.
  */
-class HomeFragment : AbstractFragment(), HomeFragmentView {
+class HomeFragment : AbstractFragment(), HomeFragmentView, LikeAndUnLikeView {
+
+    override fun bindLikeAction(homeListResponse: HomeListResponse) {
+        articleAdapter?.likeItemByPosition(likePosition)
+        Toast.makeText(activityContext, "收藏成功", Toast.LENGTH_SHORT).show()
+
+    }
+
+    override fun bindUnLikeAction(homeListResponse: HomeListResponse) {
+        articleAdapter?.unLikeItemByPosition(likePosition)
+        Toast.makeText(activityContext, "取消收藏", Toast.LENGTH_SHORT).show()
+    }
+
     var bannerRecycler: BannerRecyclerView? = null
     var articleRecycler: XRecyclerView? = null
     var bannerAdapter: BannerAdapter? = null
     var articleAdapter: ArticleAdapter? = null
     var pageIndex: Int = 0
     var refresh: Boolean = false
+    var likePosition: Int = -1
 
     override fun showLoading() {
 
@@ -99,7 +113,14 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
 
                     override fun onArticleLikeClick(article: Datas) {
                         if (SharedPreferencesUtil.login(activityContext!!)) {
-                            Toast.makeText(activityContext, "收藏", Toast.LENGTH_SHORT).show()
+                            likePosition = article.postion
+                            if (article.collect) {
+                                likeAndUnLikePresenter?.unLikeAction(article.id, article.originId)
+                            } else {
+                                likeAndUnLikePresenter?.likeAction(article.id)
+                                Toast.makeText(activityContext, "收藏", Toast.LENGTH_SHORT).show()
+                            }
+
                         } else {
                             Toast.makeText(activityContext, "请先登录哦~(づ￣3￣)づ╭❤～", Toast.LENGTH_SHORT).show()
                         }
@@ -137,6 +158,7 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
     }
 
     var homeFragmentPresenter: HomeFragmentPresenter? = null
+    var likeAndUnLikePresenter: LikeAndUnLikePresenter? = null
 
     override fun setFragmentLayout(): Int {
         return R.layout.fragment_home
@@ -144,7 +166,9 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
 
     override fun initData() {
         homeFragmentPresenter = HomeFragmentPresenter()
+        likeAndUnLikePresenter = LikeAndUnLikePresenter()
         homeFragmentPresenter?.attachView(this)
+        likeAndUnLikePresenter?.attachView(this)
         bannerAdapter = BannerAdapter(activityContext!!)
         articleAdapter = ArticleAdapter(activityContext!!)
 

@@ -3,7 +3,7 @@ import retrofit2.http.*
 import rx.Observable
 
 /**
- * Retrofit请求api
+ * Retrofit请求玩AndroidAPI
  */
 interface RetrofitService {
 
@@ -83,54 +83,54 @@ interface RetrofitService {
             @Field("password") password: String,
             @Field("repassword") repassowrd: String)
             : Observable<LoginResponse>
-//
-//    /**
-//     * 获取自己收藏的文章列表
-//     * @param page page
-//     * @return Deferred<HomeListResponse>
-//     */
-//    @GET("/lg/collect/list/{page}/json")
-//    fun getLikeList(
-//            @Path("page") page: Int
-//    ): Deferred<HomeListResponse>
-//
-//    /**
-//     * 收藏文章
-//     * @param id id
-//     * @return Deferred<HomeListResponse>
-//     */
-//    @POST("/lg/collect/{id}/json")
-//    fun addCollectArticle(
-//            @Path("id") id: Int
-//    ): Deferred<HomeListResponse>
-//
-//    /**
-//     * 收藏站外文章
-//     * @param title title
-//     * @param author author
-//     * @param link link
-//     * @return Deferred<HomeListResponse>
-//     */
-//    @POST("/lg/collect/add/json")
-//    @FormUrlEncoded
-//    fun addCollectOutsideArticle(
-//            @Field("title") title: String,
-//            @Field("author") author: String,
-//            @Field("link") link: String
-//    ): Deferred<HomeListResponse>
-//
-//    /**
-//     * 删除收藏文章
-//     * @param id id
-//     * @param originId -1
-//     * @return Deferred<HomeListResponse>
-//     */
-//    @POST("/lg/uncollect/{id}/json")
-//    @FormUrlEncoded
-//    fun removeCollectArticle(
-//            @Path("id") id: Int,
-//            @Field("originId") originId: Int = -1
-//    ): Deferred<HomeListResponse>
+
+    /**
+     * 获取自己收藏的文章列表
+     * @param page page
+     * @return Deferred<HomeListResponse>
+     */
+    @GET("/lg/collect/list/{page}/json")
+    fun getLikeList(
+            @Path("page") page: Int
+    ): Observable<HomeListResponse>
+
+    /**
+     * 收藏文章
+     * @param id id
+     * @return Deferred<HomeListResponse>
+     */
+    @POST("/lg/collect/{id}/json")
+    fun addCollectArticle(
+            @Path("id") id: Int
+    ): Observable<HomeListResponse>
+
+    /**
+     * 收藏站外文章
+     * @param title title
+     * @param author author
+     * @param link link
+     * @return Deferred<HomeListResponse>
+     */
+    @POST("/lg/collect/add/json")
+    @FormUrlEncoded
+    fun addCollectOutsideArticle(
+            @Field("title") title: String,
+            @Field("author") author: String,
+            @Field("link") link: String
+    ): Observable<HomeListResponse>
+
+    /**
+     * 删除收藏文章
+     * @param id id
+     * @param originId -1
+     * @return Deferred<HomeListResponse>
+     */
+    @POST("/lg/uncollect/{id}/json")
+    @FormUrlEncoded
+    fun removeCollectArticle(
+            @Path("id") id: Int,
+            @Field("originId") originId: Int = -1
+    ): Observable<HomeListResponse>
 
     /**
      * 首页Banner
@@ -139,11 +139,4 @@ interface RetrofitService {
     @GET("/banner/json")
     fun getBanner(): Observable<BannerResponse>
 
-
-    /**
-     * 我的常用网址
-     * @return FriendListResponse
-     */
-//    @GET("/lg/collect/usertools/json")
-//    fun getBookmarkList(): Deferred<FriendListResponse>
 }

@@ -28,6 +28,8 @@ class ArticleAdapter(mContext: Context) : RecyclerView.Adapter<RecyclerView.View
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         val currentData: Datas = articleList.get(position)
+        currentData.postion = position
+
         when (holder) {
             is ArticleViewHoler -> {
                 holder.authName.text = currentData.author
@@ -45,6 +47,12 @@ class ArticleAdapter(mContext: Context) : RecyclerView.Adapter<RecyclerView.View
 
                 holder.chapterName.setOnClickListener {
                     articleClickListener?.onArticleTypeClick(currentData)
+                }
+
+                if (currentData.collect) {
+                    holder.favorite.setImageResource(R.mipmap.icon_like)
+                } else {
+                    holder.favorite.setImageResource(R.mipmap.icon_dislike)
                 }
             }
         }
@@ -84,5 +92,16 @@ class ArticleAdapter(mContext: Context) : RecyclerView.Adapter<RecyclerView.View
         var favorite: ImageView = itemView.findViewById(R.id.favorite)
     }
 
+    fun likeItemByPosition(position: Int) {
+        val currentLikeData = articleList.get(position)
+        currentLikeData.collect = true
+        notifyDataSetChanged()
+    }
+
+    fun unLikeItemByPosition(position: Int) {
+        val currentLikeData = articleList.get(position)
+        currentLikeData.collect = false
+        notifyDataSetChanged()
+    }
 
 }

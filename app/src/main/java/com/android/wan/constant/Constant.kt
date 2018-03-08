@@ -41,4 +41,8 @@ object Constant {
      */
     const val LOGIN_SUCCESS_KEY = "login_success_key"
 
+    const val LOGIN_KEY = "login"
+    const val USERNAME_KEY = "username"
+    const val PASSWORD_KEY = "password"
+
 }

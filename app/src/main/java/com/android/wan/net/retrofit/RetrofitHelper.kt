@@ -1,4 +1,6 @@
+import android.util.Log
 import com.android.wan.BuildConfig
+import com.android.wan.base.Preference
 import com.android.wan.constant.Constant
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -27,11 +29,13 @@ object RetrofitHelper {
                 val request = it.request()
                 val response = it.proceed(request)
                 val requestUrl = request.url().toString()
+                Log.e(TAG, "requestUrl----->" + requestUrl)
                 val domain = request.url().host()
                 // set-cookie maybe has multi, login to save cookie
                 if ((requestUrl.contains(SAVE_USER_LOGIN_KEY) || requestUrl.contains(SAVE_USER_REGISTER_KEY))
                         && !response.headers(SET_COOKIE_KEY).isEmpty()) {
                     val cookies = response.headers(SET_COOKIE_KEY)
+                    Log.e(TAG, "cookies----->" + cookies)
                     val cookie = encodeCookie(cookies)
                     saveCookie(requestUrl, domain, cookie)
                 }
@@ -42,13 +46,15 @@ object RetrofitHelper {
                 val request = it.request()
                 val builder = request.newBuilder()
                 val domain = request.url().host()
-//                if (domain.isNotEmpty()) {
-//                    val spDomain: String by Preference(domain, "")
-//                    val cookie: String = if (spDomain.isNotEmpty()) spDomain else ""
-//                    if (cookie.isNotEmpty()) {
-//                        builder.addHeader(COOKIE_NAME, cookie)
-//                    }
-//                }
+                if (domain.isNotEmpty()) {
+                    val spDomain: String by Preference(domain, "")
+                    val cookie: String = if (spDomain.isNotEmpty()) spDomain else ""
+                    if (cookie.isNotEmpty()) {
+                        builder.addHeader(COOKIE_NAME, cookie)
+                    }
+                    Log.e(TAG, "domain----->" + domain + "---->cookie--->" + cookie)
+
+                }
                 it.proceed(builder.build())
             }
             if (BuildConfig.DEBUG) {
@@ -76,14 +82,14 @@ object RetrofitHelper {
      */
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     private fun saveCookie(url: String?, domain: String?, cookies: String) {
-//        url ?: return
-//        var spUrl: String by Preference(url, cookies)
-//        @Suppress("UNUSED_VALUE")
-//        spUrl = cookies
-//        domain ?: return
-//        var spDomain: String by Preference(domain, cookies)
-//        @Suppress("UNUSED_VALUE")
-//        spDomain = cookies
+        url ?: return
+        var spUrl: String by Preference(url, cookies)
+        @Suppress("UNUSED_VALUE")
+        spUrl = cookies
+        domain ?: return
+        var spDomain: String by Preference(domain, cookies)
+        @Suppress("UNUSED_VALUE")
+        spDomain = cookies
     }
 
     /**
