@@ -14,10 +14,14 @@ import com.android.wan.base.AbstractFragment
 import com.android.wan.callback.OnArticleClickListener
 import com.android.wan.constant.Constant
 import com.android.wan.net.response.ArticleListResponse
+import com.android.wan.net.response.HomeListResponse
 import com.android.wan.net.response.entity.AriticleBundleData
 import com.android.wan.net.response.entity.Datas
 import com.android.wan.presenter.ArticleListPresenter
+import com.android.wan.presenter.LikeAndUnLikePresenter
+import com.android.wan.utils.SharedPreferencesUtil
 import com.android.wan.view.ArticleListView
+import com.android.wan.view.LikeAndUnLikeView
 import com.jcodecraeer.xrecyclerview.ProgressStyle
 import com.jcodecraeer.xrecyclerview.XRecyclerView
 import java.util.ArrayList
@@ -26,7 +30,17 @@ import java.util.ArrayList
 /**
  * @author by 有人@我 on 18/1/26.
  */
-class ArticleListFragment(var articleTitle: String, var cid: Int) : AbstractFragment(), ArticleListView {
+class ArticleListFragment(var articleTitle: String, var cid: Int) : AbstractFragment(), ArticleListView, LikeAndUnLikeView {
+    override fun bindLikeAction(homeListResponse: HomeListResponse) {
+        articleAdapter?.likeItemByPosition(likePosition)
+        Toast.makeText(activityContext, "收藏成功", Toast.LENGTH_SHORT).show()
+
+    }
+
+    override fun bindUnLikeAction(homeListResponse: HomeListResponse) {
+        articleAdapter?.unLikeItemByPosition(likePosition)
+        Toast.makeText(activityContext, "取消收藏", Toast.LENGTH_SHORT).show()
+    }
 
     var articleAdapter: ArticleAdapter? = null
     var pageIndex: Int = 0
@@ -34,6 +48,9 @@ class ArticleListFragment(var articleTitle: String, var cid: Int) : AbstractFrag
     var articleRecycler: XRecyclerView? = null
     var articlePresenter: ArticleListPresenter? = null
     var articleName: String? = articleTitle
+    var likePosition: Int = -1
+    var likeAndUnLikePresenter: LikeAndUnLikePresenter? = null
+
 
     override fun showLoading() {
 
@@ -70,7 +87,18 @@ class ArticleListFragment(var articleTitle: String, var cid: Int) : AbstractFrag
                     }
 
                     override fun onArticleLikeClick(article: Datas) {
-                        Toast.makeText(activityContext, "收藏", Toast.LENGTH_SHORT).show()
+                        if (SharedPreferencesUtil.login(activityContext!!)) {
+                            likePosition = article.postion
+                            if (article.collect) {
+                                likeAndUnLikePresenter?.unLikeAction(article.id, article.originId)
+                            } else {
+                                likeAndUnLikePresenter?.likeAction(article.id)
+                                Toast.makeText(activityContext, "收藏", Toast.LENGTH_SHORT).show()
+                            }
+
+                        } else {
+                            Toast.makeText(activityContext, "请先登录哦~(づ￣3￣)づ╭❤～", Toast.LENGTH_SHORT).show()
+                        }
                     }
 
                 }
@@ -108,7 +136,9 @@ class ArticleListFragment(var articleTitle: String, var cid: Int) : AbstractFrag
 
     override fun initData() {
         articlePresenter = ArticleListPresenter()
+        likeAndUnLikePresenter = LikeAndUnLikePresenter()
         articlePresenter?.attachView(this)
+        likeAndUnLikePresenter?.attachView(this)
         articleAdapter = ArticleAdapter(activityContext!!)
     }
 
