@@ -12,6 +12,7 @@ import com.android.wan.callback.OnLoginSuccessListener
 import com.android.wan.customwidget.WithdrawClearEditText
 import com.android.wan.net.response.LoginResponse
 import com.android.wan.presenter.LoginPresenter
+import com.android.wan.utils.InPutTypeUtil
 import com.android.wan.view.LoginView
 
 /**
@@ -36,6 +37,7 @@ class LoginFragment : AbstractFragment(), LoginView {
 
     override fun initEvent() {
         login?.setOnClickListener {
+            InPutTypeUtil.hidenputKeyboardImmediately(activityContext)
             if (localCheck()) {
                 loginPresenter?.loginAccount(account?.text.toString(), password?.text.toString())
             }

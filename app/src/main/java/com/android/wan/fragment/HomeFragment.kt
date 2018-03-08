@@ -21,6 +21,7 @@ import com.android.wan.net.response.entity.AriticleBundleData
 import com.android.wan.net.response.entity.Data
 import com.android.wan.net.response.entity.Datas
 import com.android.wan.presenter.HomeFragmentPresenter
+import com.android.wan.utils.SharedPreferencesUtil
 import com.android.wan.view.HomeFragmentView
 import com.jcodecraeer.xrecyclerview.ProgressStyle
 import com.jcodecraeer.xrecyclerview.XRecyclerView
@@ -49,7 +50,7 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
 
         val soHotData: BannerResponse.Data = BannerResponse.Data(9, soHotGitHub, soHotPic, soHotDesc, soHotDesc, 0, 0, 0)
         val list = bannerResponse.data
-        (list as ArrayList<BannerResponse.Data>).add(0,soHotData)
+        (list as ArrayList<BannerResponse.Data>).add(0, soHotData)
         bannerAdapter!!.itemClickListener = object : OnRecyItemClickListener<BannerResponse.Data> {
             override fun onRecyItemClick(position: Int, t: BannerResponse.Data) {
                 val intent = Intent(activityContext, BrowserActivity::class.java)
@@ -97,7 +98,11 @@ class HomeFragment : AbstractFragment(), HomeFragmentView {
                     }
 
                     override fun onArticleLikeClick(article: Datas) {
-                        Toast.makeText(activityContext, "收藏", Toast.LENGTH_SHORT).show()
+                        if (SharedPreferencesUtil.login(activityContext!!)) {
+                            Toast.makeText(activityContext, "收藏", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(activityContext, "请先登录哦~(づ￣3￣)づ╭❤～", Toast.LENGTH_SHORT).show()
+                        }
                     }
 
                 }

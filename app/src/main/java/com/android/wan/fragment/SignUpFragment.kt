@@ -12,6 +12,7 @@ import com.android.wan.callback.OnSignUpSuccessListener
 import com.android.wan.customwidget.WithdrawClearEditText
 import com.android.wan.net.response.LoginResponse
 import com.android.wan.presenter.SignUpPresenter
+import com.android.wan.utils.InPutTypeUtil
 import com.android.wan.view.SignUpView
 
 /**
@@ -40,6 +41,7 @@ class SignUpFragment : AbstractFragment(), SignUpView {
 
     override fun initEvent() {
         signUp?.setOnClickListener {
+            InPutTypeUtil.hidenputKeyboardImmediately(activityContext)
             if (localCheck()) {
                 accountText = account!!.text.toString()
                 passwordText = password!!.text.toString()

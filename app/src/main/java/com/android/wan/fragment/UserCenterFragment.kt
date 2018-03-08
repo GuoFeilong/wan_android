@@ -76,7 +76,11 @@ class UserCenterFragment : AbstractFragment(), View.OnClickListener {
                 startActivityForResult(intent, Constant.REQUEST_CODE_4_LOGIN)
             }
             R.id.civ_favorite -> {
-                Toast.makeText(activityContext, "收藏", Toast.LENGTH_SHORT).show()
+                if(SharedPreferencesUtil.login(activityContext!!)){
+                    Toast.makeText(activityContext, "收藏", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(activityContext, "请先登录哦~(づ￣3￣)づ╭❤～", Toast.LENGTH_SHORT).show()
+                }
             }
             R.id.civ_hot_search -> {
                 startActivity(Intent(activityContext, HotKeyActivity::class.java))
