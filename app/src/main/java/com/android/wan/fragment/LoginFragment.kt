@@ -8,6 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.android.wan.R
 import com.android.wan.base.AbstractFragment
+import com.android.wan.callback.OnLoginSuccessListener
 import com.android.wan.customwidget.WithdrawClearEditText
 import com.android.wan.net.response.LoginResponse
 import com.android.wan.presenter.LoginPresenter
@@ -22,6 +23,7 @@ class LoginFragment : AbstractFragment(), LoginView {
     var account: WithdrawClearEditText? = null
     var password: WithdrawClearEditText? = null
     var login: TextView? = null
+    var onLoginSuccessListener: OnLoginSuccessListener? = null
 
     override fun setFragmentLayout(): Int {
         return R.layout.fragment_login
@@ -53,7 +55,7 @@ class LoginFragment : AbstractFragment(), LoginView {
     override fun bindLoginData(loginResponse: LoginResponse) {
         when (loginResponse.errorCode) {
             0 -> {
-                Log.e("---loginResponse--->", loginResponse.toString())
+                onLoginSuccessListener?.loginSuccess(loginResponse)
             }
             else -> {
                 Toast.makeText(activityContext, loginResponse.errorMsg, Toast.LENGTH_SHORT).show()
@@ -86,6 +88,10 @@ class LoginFragment : AbstractFragment(), LoginView {
             return false
         }
         return true
+    }
+
+    fun setLoginSuccessListener(onLoginSuccessListener: OnLoginSuccessListener) {
+        this.onLoginSuccessListener = onLoginSuccessListener
     }
 
 }

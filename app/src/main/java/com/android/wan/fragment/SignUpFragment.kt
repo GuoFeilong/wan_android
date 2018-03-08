@@ -8,6 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.android.wan.R
 import com.android.wan.base.AbstractFragment
+import com.android.wan.callback.OnSignUpSuccessListener
 import com.android.wan.customwidget.WithdrawClearEditText
 import com.android.wan.net.response.LoginResponse
 import com.android.wan.presenter.SignUpPresenter
@@ -25,6 +26,7 @@ class SignUpFragment : AbstractFragment(), SignUpView {
     var accountText: String = ""
     var passwordText: String = ""
     var rePasswordText: String = ""
+    var onSignUpSuccessListener: OnSignUpSuccessListener? = null
 
 
     override fun setFragmentLayout(): Int {
@@ -61,7 +63,7 @@ class SignUpFragment : AbstractFragment(), SignUpView {
     override fun bindSignUpData(loginResponse: LoginResponse) {
         when (loginResponse.errorCode) {
             0 -> {
-                Log.e("---loginResponse--->", loginResponse.toString())
+                onSignUpSuccessListener?.signUpSuccess()
             }
             else -> {
                 Toast.makeText(activityContext, loginResponse.errorMsg, Toast.LENGTH_SHORT).show()
@@ -109,4 +111,7 @@ class SignUpFragment : AbstractFragment(), SignUpView {
         return true
     }
 
+    fun setSignUpListener(onSignUpSuccessListener: OnSignUpSuccessListener) {
+        this.onSignUpSuccessListener = onSignUpSuccessListener
+    }
 }

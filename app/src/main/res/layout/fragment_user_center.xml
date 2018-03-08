@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white">
@@ -13,6 +14,22 @@
         android:background="@mipmap/user_center_top_bg">
 
         <TextView
+            android:id="@+id/tv_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dimens_12_dp"
+            android:layout_marginTop="@dimen/dimens_32_dp"
+            android:drawableLeft="@drawable/ic_directions_run_black_24dp"
+            android:drawablePadding="@dimen/dimens_2_dp"
+            android:gravity="center"
+            android:text="登出"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/dimens_12_sp"
+            android:visibility="gone" />
+
+
+        <TextView
             android:id="@+id/tv_login_action"
             android:layout_width="@dimen/dimens_132_dp"
             android:layout_height="@dimen/dimen_32_dp"
@@ -22,6 +39,31 @@
             android:text="@string/login_regist"
             android:textColor="@android:color/white"
             android:textSize="@dimen/dimens_15_sp" />
+
+        <LinearLayout
+            android:id="@+id/ll_login_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_search" />
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimens_8_dp"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/dimens_12_sp"
+                tools:text="作者" />
+
+        </LinearLayout>
 
 
     </RelativeLayout>

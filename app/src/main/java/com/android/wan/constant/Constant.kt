@@ -32,5 +32,13 @@ object Constant {
      * 显示注册
      */
     const val SHOW_SIGNUP = 1
+    /**
+     * 去登录请求吗
+     */
+    const val REQUEST_CODE_4_LOGIN = 11
+    /**
+     * 登录成功保存登录状态的key
+     */
+    const val LOGIN_SUCCESS_KEY = "login_success_key"
 
 }
