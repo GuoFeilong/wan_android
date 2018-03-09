@@ -44,9 +44,9 @@ class KnowledgeTreeMoudle {
 
     fun getCarData(): List<CarData> {
         return listOf(
-                CarData("SoHot客户端你懂得", "http://blog.csdn.net/givemeacondom/article/details/50526518"),
-                CarData("墙外面的在线直播", "http://www.youjizz.com"),
-                CarData("全民最爱1024", "http://www.t66y.com")
+                CarData("kotlin中国", "https://kotliner.cn/"),
+                CarData("有人@我", "http://blog.csdn.net/givemeacondom"),
+                CarData("翔哥的博客", "http://blog.csdn.net/lmj623565791")
         )
     }
 }
