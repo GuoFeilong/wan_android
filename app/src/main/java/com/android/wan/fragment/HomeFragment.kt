@@ -133,7 +133,6 @@ class HomeFragment : AbstractFragment(), HomeFragmentView, LikeAndUnLikeView {
                                 likeAndUnLikePresenter?.unLikeAction(article.id, article.originId)
                             } else {
                                 likeAndUnLikePresenter?.likeAction(article.id)
-                                Toast.makeText(activityContext, "收藏", Toast.LENGTH_SHORT).show()
                             }
 
                         } else {
