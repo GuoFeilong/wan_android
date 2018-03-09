@@ -72,4 +72,8 @@ dependencies {
     //RxJava
     implementation "io.reactivex:rxkotlin:$rxkotlin_version"
     implementation "io.reactivex:rxandroid:$rxandroid_version"
+
+    // banner
+    implementation 'com.youth.banner:banner:1.4.10'
+
 }

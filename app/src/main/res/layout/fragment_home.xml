@@ -5,13 +5,23 @@
     android:layout_height="match_parent"
     android:background="@color/color_f2f2f2">
 
-    <com.android.wan.customwidget.BannerRecyclerView
+    <!--<com.android.wan.customwidget.BannerRecyclerView-->
+    <!--android:visibility="gone"-->
+    <!--android:id="@+id/bannerRecycler"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/dimens_160_dp"-->
+    <!--app:layout_constraintTop_toTopOf="parent">-->
+
+    <!--</com.android.wan.customwidget.BannerRecyclerView>-->
+
+    <com.youth.banner.Banner
         android:id="@+id/bannerRecycler"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimens_160_dp"
         app:layout_constraintTop_toTopOf="parent">
 
-    </com.android.wan.customwidget.BannerRecyclerView>
+    </com.youth.banner.Banner>
+
 
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/articleRecycler"
