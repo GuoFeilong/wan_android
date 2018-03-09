@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -50,6 +50,9 @@
             android:name=".activity.LikeListActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".activity.MainActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 
