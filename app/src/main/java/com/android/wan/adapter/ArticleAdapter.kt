@@ -104,4 +104,15 @@ class ArticleAdapter(mContext: Context) : RecyclerView.Adapter<RecyclerView.View
         notifyDataSetChanged()
     }
 
+    fun unLikeItemByPositionDelete(position: Int) {
+        val currentLikeData = articleList.get(position)
+        (articleList as ArrayList).remove(currentLikeData)
+        notifyDataSetChanged()
+    }
+
+    fun makeAllItemLike(){
+        for (item: Datas in articleList) {
+            item.collect = true
+        }
+    }
 }

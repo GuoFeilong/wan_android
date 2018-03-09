@@ -17,8 +17,11 @@ import com.android.wan.net.response.HotKeyResponse
 import com.android.wan.net.response.entity.AriticleBundleData
 import com.android.wan.net.response.entity.Datas
 import com.android.wan.presenter.HotSearchPresenter
+import com.android.wan.presenter.LikeAndUnLikePresenter
 import com.android.wan.utils.HtmlUtil
+import com.android.wan.utils.SharedPreferencesUtil
 import com.android.wan.view.HotSearchView
+import com.android.wan.view.LikeAndUnLikeView
 import com.jcodecraeer.xrecyclerview.ProgressStyle
 import com.jcodecraeer.xrecyclerview.XRecyclerView
 import java.util.*
@@ -26,7 +29,18 @@ import java.util.*
 /**
  * @author by 有人@我 on 18/3/5.
  */
-class HotKeyActivity : AbstractActivity(), HotSearchView {
+class HotKeyActivity : AbstractActivity(), HotSearchView, LikeAndUnLikeView {
+    override fun bindLikeAction(homeListResponse: HomeListResponse) {
+        articleAdapter?.likeItemByPosition(likePosition)
+        Toast.makeText(this, "收藏成功", Toast.LENGTH_SHORT).show()
+
+    }
+
+    override fun bindUnLikeAction(homeListResponse: HomeListResponse) {
+        articleAdapter?.unLikeItemByPosition(likePosition)
+        Toast.makeText(this, "取消收藏", Toast.LENGTH_SHORT).show()
+    }
+
 
     var toolbar: Toolbar? = null
     var hotKeyFlow: FlowLayout? = null
@@ -37,10 +51,14 @@ class HotKeyActivity : AbstractActivity(), HotSearchView {
     var refresh: Boolean = false
     var clearFlag: Boolean = false
     var currentSearchKey: String = ""
+    var likePosition: Int = -1
+    var likeAndUnLikePresenter: LikeAndUnLikePresenter? = null
 
 
     override fun initData() {
         articleAdapter = ArticleAdapter(this)
+        likeAndUnLikePresenter = LikeAndUnLikePresenter()
+        likeAndUnLikePresenter?.attachView(this)
         hotSearchPresenter = HotSearchPresenter()
         hotSearchPresenter?.attachView(this)
     }
@@ -158,7 +176,17 @@ class HotKeyActivity : AbstractActivity(), HotSearchView {
                             }
 
                             override fun onArticleLikeClick(article: Datas) {
-                                Toast.makeText(this@HotKeyActivity, "收藏", Toast.LENGTH_SHORT).show()
+                                if (SharedPreferencesUtil.login(this@HotKeyActivity)) {
+                                    likePosition = article.postion
+                                    if (article.collect) {
+                                        likeAndUnLikePresenter?.unLikeAction(article.id, article.originId)
+                                    } else {
+                                        likeAndUnLikePresenter?.likeAction(article.id)
+                                    }
+
+                                } else {
+                                    Toast.makeText(this@HotKeyActivity, "请先登录哦~(づ￣3￣)づ╭❤～", Toast.LENGTH_SHORT).show()
+                                }
                             }
 
                         }
