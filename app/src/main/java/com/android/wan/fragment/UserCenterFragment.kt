@@ -93,7 +93,7 @@ class UserCenterFragment : AbstractFragment(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.civ_about -> {
-                Toast.makeText(activityContext, "关于", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activityContext, "关于我们\n这个鸡肋的页面不想开发了\n欢迎玩Android2群(423372824)开车,司机众多,学习很快!!", Toast.LENGTH_LONG).show()
             }
             R.id.tv_logout -> {
                 SharedPreferencesUtil.saveShareData(activityContext!!, "", Constant.LOGIN_SUCCESS_KEY)
