@@ -18,7 +18,7 @@ ext.rxandroid_version = '1.2.1'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.0'
+    buildToolsVersion '27.0.3'
 
 
     packagingOptions {
